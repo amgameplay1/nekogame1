@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>3倍サイズにゃんこの大冒険アクションゲーム</title>
+<style>
+/* 基本スタイルの定義 */
+* {
+box-sizing: border-box;
+user-select: none;
+-webkit-user-select: none;
+margin: 0;
+padding: 0;
+}
+body, html {
+width: 100%;
+height: 100%;
+overflow: hidden;
+background-color: #87CEEB;
+font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+/* ゲームコンテナの設定 */
+#gameContainer {
+position: relative;
+width: 100%;
+height: 100%;
+max-width: 800px;
+max-height: 450px;
+margin: auto;
+background: linear-gradient(to bottom, #87CEEB 0%, #E0F6FF 70%, #90EE90 100%);
+box-shadow: 0 0 20px rgba(0,0,0,0.3);
+overflow: hidden;
+}
+/* キャンバスの配置 */
+canvas {
+display: block;
+width: 100%;
+height: 100%;
+background: transparent;
+}
+/* 画面上部のステータス表示のUIデザイン */
+#uiOverlay {
+position: absolute;
+top: 10px;
+left: 10px;
+right: 10px;
+display: flex;
+justify-content: space-between;
+font-size: 16px;
+font-weight: bold;
+color: #333;
+z-index: 10;
+pointer-events: none;
+background: rgba(255, 255, 255, 0.4);
+padding: 8px 12px;
+border-radius: 20px;
+backdrop-filter: blur(2px);
+}
+.ui-group {
+display: flex;
+gap: 15px;
+}
+.ui-item {
+display: flex;
+align-items: center;
+gap: 4px;
+}
+/* 左下に表示するゲームオーバーリザルトのデザイン */
+#gameOverPanel {
+display: none;
+position: absolute;
+bottom: 75px;
+left: 15px;
+background: rgba(255, 255, 255, 0.95);
+border: 3px solid #ff6b6b;
+border-radius: 12px;
+padding: 12px 16px;
+width: 220px;
+box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+z-index: 20;
+text-align: left;
+}
+#gameOverPanel h2 {
+font-size: 18px;
+color: #ff4747;
+margin-bottom: 6px;
+}
+#gameOverPanel p {
+font-size: 14px;
+color: #444;
+margin: 4px 0;
+font-weight: bold;
+}
+#retryButton {
+margin-top: 8px;
+width: 100%;
+padding: 6px;
+background-color: #4caf50;
+color: white;
+border: none;
+border-radius: 6px;
+font-weight: bold;
+font-size: 14px;
+cursor: pointer;
+transition: background 0.2s;
+}
+#retryButton:hover {
+background-color: #45a049;
+}
+/* 画面下の操作ボタン用レイアウト */
+#controls {
+position: absolute;
+bottom: 10px;
+left: 10px;
+right: 10px;
+display: flex;
+justify-content: space-between;
+z-index: 10;
+}
+.btn-group {
+display: flex;
+gap: 12px;
+}
+.ctrl-btn {
+width: 55px;
+height: 55px;
+background: rgba(255, 255, 255, 0.75);
+border: 2px solid #555;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 24px;
+font-weight: bold;
+color: #333;
+cursor: pointer;
+box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+}
+.ctrl-btn:active {
+background: rgba(200, 200, 200, 0.9);
+transform: scale(0.92);
+}
+#jumpBtn {
+background: rgba(255, 182, 193, 0.85); /* ジャンプは可愛いピンク色 */
+border-color: #ff69b4;
+}
+</style>
+</head>
+<body>
+
+<div id="gameContainer">
+<!-- UIオーバーレイ（距離、歩数、コイン、スコア） -->
+<div id="uiOverlay">
+<div class="ui-group">
+<div class="ui-item">👣 <span id="stepsLabel">0</span>歩</div>
+<div class="ui-item">📍 <span id="distanceLabel">0.0</span>m</div>
+</div>
+<div class="ui-group">
+<div class="ui-item">🪙 <span id="coinsLabel">0</span>枚</div>
+<div class="ui-item">✨ <span id="scoreLabel">0</span></div>
+</div>
+</div>
+
+<!-- 左下リザルトパネル（画面は暗くせずそのまま） -->
+<div id="gameOverPanel">
+<h2>ゲームオーバー</h2>
+<p>記録: <span id="finalDistance">0.0</span>m</p>
+<p>歩数: <span id="finalSteps">0</span>歩</p>
+<p>コイン: <span id="finalCoins">0</span>枚</p>
+<p>スコア: <span id="finalScore">0</span></p>
+<button id="retryButton">もう一度遊ぶ</button>
+</div>
+
+<!-- ゲーム画面を描画するキャンバス -->
+<canvas id="gameCanvas"></canvas>
+
+<!-- タッチ用の操作ボタン -->
+<div id="controls">
+<div class="btn-group">
+<div class="ctrl-btn" id="leftBtn">←</div>
+<div class="ctrl-btn" id="rightBtn">→</div>
+</div>
+<div class="ctrl-btn" id="jumpBtn">▲</div>
+</div>
+</div>
+<script>
+// JavaScriptによるゲーム制御プログラム
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+
+// キャンバスサイズの論理解像度の設定（スマホ・PCでの比率維持用）
+const GAME_WIDTH = 800;
+const GAME_HEIGHT = 450;
+canvas.width = GAME_WIDTH;
+canvas.height = GAME_HEIGHT;
+
+// ゲーム状態の管理オブジェクト
+let game = {
+steps: 0,
+distance: 0,
+coins: 0,
+score: 0,
+isGameOver: false,
+gameOverTimer: 0,
+slowMotionFactor: 1, // ミス時のスローモーション倍率
+cameraX: 0
+};
+
+// プレイヤー（猫ちゃん）のパラメーター定義
+const catPlayer = {
+x: 100,
+y: 300,
+baseSize: 24, // 基本サイズ
+size: 24 * 3, // 3倍のビッグサイズ
+vx: 0,
+vy: 0,
+speed: 4,
+gravity: 0.6,
+jumpForce: -11,
+isGrounded: false,
+facingRight: true,
+doubleJumpAvailable: true,
+walkCycle: 0
+};
+
+// ステージ床面の高さの定義
+const GROUND_Y = 380;
+
+// サウンドエフェクト再生用のWeb Audio APIコンテキストの初期化
+let audioCtx = null;
+
+function initAudio() {
+if (!audioCtx) {
+audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+}
+}
+// かわいい足音（トコトコ）を鳴らす関数
+function playFootstepSound() {
+try {
+initAudio();
+const osc = audioCtx.createOscillator();
+const gain = audioCtx.createGain();
+osc.connect(gain);
+gain.connect(audioCtx.destination);
+
+osc.type = 'triangle'; // まろやかで可愛い音色
+osc.frequency.setValueAtTime(150, audioCtx.currentTime); // 低めのトコトコ音
+gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+
+osc.start();
+osc.stop(audioCtx.currentTime + 0.08);
+} catch(e) {}
+}
+
+// かわいいジャンプ音（ピョン）を鳴らす関数
+function playJumpSound() {
+try {
+initAudio();
+const osc = audioCtx.createOscillator();
+const gain = audioCtx.createGain();
+osc.connect(gain);
+gain.connect(audioCtx.destination);
+
+osc.type = 'sine'; // ポップなサイン波
+osc.frequency.setValueAtTime(300, audioCtx.currentTime);
+// 音程を上に向かってスライドさせてジャンプ感を出す
+osc.frequency.exponentialRampToValueAtTime(600, audioCtx.currentTime + 0.15);
+gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+
+osc.start();
+osc.stop(audioCtx.currentTime + 0.15);
+} catch(e) {}
+}
+
+// 敵を踏んづけたときの音（ポコっ）を鳴らす関数
+function playStompSound() {
+try {
+initAudio();
+const osc = audioCtx.createOscillator();
+const gain = audioCtx.createGain();
+osc.connect(gain);
+gain.connect(audioCtx.destination);
+
+osc.type = 'triangle';
+osc.frequency.setValueAtTime(250, audioCtx.currentTime);
+osc.frequency.setValueAtTime(450, audioCtx.currentTime + 0.04); // 一瞬で高音に弾ませる
+gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.12);
+
+osc.start();
+osc.stop(audioCtx.currentTime + 0.12);
+} catch(e) {}
+}
+
+// 障害物に触れたときのぶっ飛び音（ポーン）を鳴らす関数
+function playGameOverSound() {
+try {
+initAudio();
+const osc = audioCtx.createOscillator();
+const gain = audioCtx.createGain();
+osc.connect(gain);
+gain.connect(audioCtx.destination);
+
+osc.type = 'sine';
+osc.frequency.setValueAtTime(220, audioCtx.currentTime);
+// 勢いよくポーンと上昇してから下がるイメージ
+osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.15);
+osc.frequency.exponentialRampToValueAtTime(330, audioCtx.currentTime + 0.4);
+gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+
+osc.start();
+osc.stop(audioCtx.currentTime + 0.4);
+} catch(e) {}
+}
+// ステージ配置オブジェクトの管理用配列
+let enemies = []; // 5mごとの敵（🐟や💩）
+let fruits = []; // 8mごとの空から降るフルーツ（🍎・🍌・🍈）
+let rivals = []; // 10mごとのライバル猫
+let nextGenX = 200; // ステージ要素を自動生成する基準となるX座標
+
+// 入力状態を管理するオブジェクト
+const keys = {
+left: false,
+right: false,
+up: false
+};
+
+// キーボードの入力イベント設定
+window.addEventListener('keydown', (e) => {
+initAudio(); // 最初のキー入力でオーディオコンテキストをアクティブにする
+if (game.isGameOver) return;
+
+if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') keys.left = true;
+if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') keys.right = true;
+if (e.key === 'ArrowUp' || e.key === ' ' || e.key === 'w' || e.key === 'W') {
+if (!keys.up) {
+handleJumpAction();
+}
+keys.up = true;
+}
+});
+
+window.addEventListener('keyup', (e) => {
+if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') keys.left = false;
+if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') keys.right = false;
+if (e.key === 'ArrowUp' || e.key === ' ' || e.key === 'w' || e.key === 'W') keys.up = false;
+});
+// 画面ボタンのタッチ・クリックイベント設定
+const leftBtn = document.getElementById('leftBtn');
+const rightBtn = document.getElementById('rightBtn');
+const jumpBtn = document.getElementById('jumpBtn');
+
+// 左移動ボタンの処理
+leftBtn.addEventListener('mousedown', () => { initAudio(); if(!game.isGameOver) keys.left = true; });
+leftBtn.addEventListener('mouseup', () => keys.left = false;);
+leftBtn.addEventListener('touchstart', (e) => { e.preventDefault(); initAudio(); if(!game.isGameOver) keys.left = true; });
+leftBtn.addEventListener('touchend', () => keys.left = false;);
+
+// 右移動ボタンの処理
+rightBtn.addEventListener('mousedown', () => { initAudio(); if(!game.isGameOver) keys.right = true; });
+rightBtn.addEventListener('mouseup', () => keys.right = false;);
+rightBtn.addEventListener('touchstart', (e) => { e.preventDefault(); initAudio(); if(!game.isGameOver) keys.right = true; });
+rightBtn.addEventListener('touchend', () => keys.right = false;);
+
+// ジャンプボタンの処理
+jumpBtn.addEventListener('mousedown', () => { initAudio(); if(!game.isGameOver) handleJumpAction(); });
+jumpBtn.addEventListener('touchstart', (e) => { e.preventDefault(); initAudio(); if(!game.isGameOver) handleJumpAction(); });
+
+// ジャンプアクションの統合処理（2段ジャンプ対応）
+function handleJumpAction() {
+if (catPlayer.isGrounded) {
+catPlayer.vy = catPlayer.jumpForce;
+catPlayer.isGrounded = false;
+catPlayer.doubleJumpAvailable = true;
+playJumpSound();
+} else if (catPlayer.doubleJumpAvailable) {
+catPlayer.vy = catPlayer.jumpForce * 0.9; // 2段目は少し軽めに
+catPlayer.doubleJumpAvailable = false;
+playJumpSound();
+}
+}
+
+// ゲームのリセット・初期化関数
+function resetGame() {
+game.steps = 0;
+game.distance = 0;
+game.coins = 0;
+game.score = 0;
+game.isGameOver = false;
+game.gameOverTimer = 0;
+game.slowMotionFactor = 1;
+game.cameraX = 0;
+catPlayer.x = 100;
+catPlayer.y = GROUND_Y - catPlayer.size;
+catPlayer.vx = 0;
+catPlayer.vy = 0;
+catPlayer.isGrounded = true;
+catPlayer.facingRight = true;
+catPlayer.doubleJumpAvailable = true;
+catPlayer.walkCycle = 0;
+
+enemies = [];
+fruits = [];
+rivals = [];
+nextGenX = 200;
+
+// 初期配置用のステージ自動生成をキック
+generateStageElements(GAME_WIDTH * 2);
+
+// リザルト画面を非表示にする
+document.getElementById('gameOverPanel').style.display = 'none';
+
+// UI表示の更新
+updateUI();
+}
+
+// プレイヤーの進行方向（X座標）に応じて敵やギミックを自動生成する関数
+function generateStageElements(targetX) {
+while (nextGenX < targetX) {
+// メートル換算（基準のX座標から算出）
+let m = Math.floor(nextGenX / 100);
+
+if (m > 0) {
+// ① 5メートルごとにランダムで絵文字の敵を地上に配置（🐟か💩）
+if (m % 5 === 0 && !enemies.some(e => Math.floor(e.x / 100) === m)) {
+let emojiList = ['🐟', '💩'];
+let randomEmoji = emojiList[Math.floor(Math.random() * emojiList.length)];
+enemies.push({
+x: nextGenX,
+y: GROUND_Y - 30,
+size: 30,
+emoji: randomEmoji,
+isDead: false
+});
+}
+
+// ② 8メートルごとにフルーツの敵が空からゆっくり落ちてくる
+if (m % 8 === 0 && !fruits.some(f => Math.floor(f.x / 100) === m)) {
+let fruitList = ['🍎', '🍌', '🍈'];
+let randomFruit = fruitList[Math.floor(Math.random() * fruitList.length)];
+fruits.push({
+x: nextGenX,
+y: -50, // 画面上部（空）からスタート
+targetY: GROUND_Y - 30,
+size: 30,
+emoji: randomFruit,
+speed: 1.5,
+isDead: false
+});
+}
+
+// ③ 10メートルごとにライバル猫が出現（サイズは主人公の30%の1.25倍＝主人公の37.5%の大きさ）
+if (m % 10 === 0 && !rivals.some(r => Math.floor(r.x / 100) === m)) {
+let rivalSize = catPlayer.size * 0.3 * 1.25;
+rivals.push({
+x: nextGenX,
+y: GROUND_Y - rivalSize, // 地面にピッタリ配置
+size: rivalSize,
+speed: 0.8, // 左にゆっくり動く
+emoji: '🐈' // 主人公と同じデザイン
+});
+}
+}
+nextGenX += 50; // 50ピクセルずつ生成間隔をチェック
+}
+}
+// UIの表示数値を最新状態に更新する関数
+function updateUI() {
+document.getElementById('stepsLabel').innerText = game.steps;
+document.getElementById('distanceLabel').innerText = game.distance.toFixed(1);
+document.getElementById('coinsLabel').innerText = game.coins;
+document.getElementById('scoreLabel').innerText = game.score;
+}
+
+// ゲームのメインアップデート関数（毎フレーム実行）
+function update() {
+// ミスしているときは、調整されたスローモーション速度で演出タイマーを進める
+if (game.isGameOver) {
+game.gameOverTimer += 1 * game.slowMotionFactor;
+updateGameOverSequence();
+return;
+}
+
+// プレイヤーの左右の移動入力処理
+if (keys.left) {
+catPlayer.vx = -catPlayer.speed;
+catPlayer.facingRight = false;
+} else if (keys.right) {
+catPlayer.vx = catPlayer.speed;
+catPlayer.facingRight = true;
+} else {
+catPlayer.vx = 0;
+}
+
+// 重力と上下の移動処理
+catPlayer.vy += catPlayer.gravity;
+catPlayer.x += catPlayer.vx;
+catPlayer.y += catPlayer.vy;
+
+// 地面（GROUND_Y）との当たり判定
+let playerBottom = catPlayer.y + catPlayer.size;
+if (playerBottom >= GROUND_Y) {
+catPlayer.y = GROUND_Y - catPlayer.size;
+catPlayer.vy = 0;
+catPlayer.isGrounded = true;
+}
+
+// スタート地点より左には戻れないように見えない壁を設置
+if (catPlayer.x < 10) {
+catPlayer.x = 10;
+}
+
+// 歩行アニメーションと「足音に合わせた歩数＆距離の加算」の処理
+if (catPlayer.isGrounded && catPlayer.vx !== 0) {
+// 歩行サイクル（アニメーション用タイマー）を進める
+catPlayer.walkCycle += 0.15;
+
+// サイクルが一定値に達するごとに「1歩」とみなす（トコトコ音の間隔）
+if (catPlayer.walkCycle >= Math.PI) {
+catPlayer.walkCycle = 0; // サイクルをリセット
+
+// かわいい足音を鳴らす
+playFootstepSound();
+
+// 足音のタイミングにぴったり合わせて歩数を1歩増やす
+game.steps += 1;
+
+// 1歩あたり20センチ（0.2m）を距離に正確に加算
+game.distance = game.steps * 0.2;
+
+// 画面のメーターにリアルタイム反映
+updateUI();
+}
+} else if (!catPlayer.isGrounded) {
+catPlayer.walkCycle = 0; // 空中にいるときはサイクルをリセット
+}
+// プレイヤーが画面中央付近にきたらカメラを追従スクロールさせる
+if (catPlayer.x - game.cameraX > GAME_WIDTH * 0.4) {
+game.cameraX = catPlayer.x - GAME_WIDTH * 0.4;
+} else if (catPlayer.x - game.cameraX < GAME_WIDTH * 0.1) {
+game.cameraX = Math.max(0, catPlayer.x - GAME_WIDTH * 0.1);
+}
+
+// プレイヤーの進行に合わせて、先々のステージオブジェクトを先行自動生成
+generateStageElements(catPlayer.x + GAME_WIDTH);
+
+// 【地上の敵（5mごと）のアップデートと当たり判定処理】
+for (let i = 0; i < enemies.length; i++) {
+let e = enemies[i];
+if (e.isDead) continue;
+
+// プレイヤーと敵の矩形（ボックス）による当たり判定チェック
+if (catPlayer.x < e.x + e.size &&
+catPlayer.x + catPlayer.size > e.x &&
+catPlayer.y < e.y + e.size &&
+catPlayer.y + catPlayer.size > e.y) {
+
+// マリオ風の踏みつけ判定：プレイヤーの足元が敵の上半分より上にあり、かつ下に向かって落下している場合
+let isStomping = (catPlayer.y + catPlayer.size - catPlayer.vy <= e.y + e.size * 0.5) && (catPlayer.vy > 0);
+
+if (isStomping) {
+// 敵を撃退
+e.isDead = true;
+catPlayer.vy = catPlayer.jumpForce * 0.8; // ポコっと上に少し弾む
+playStompSound(); // 踏みつけの「ポコ音」を鳴らす
+
+game.score += 100; // 敵撃破ボーナス
+game.coins += 1; // コインも1枚獲得
+updateUI();
+} else {
+// 横や下からぶつかった場合はミスになり、こだわりのぶっ飛び演出へ
+triggerGameOver();
+return;
+}
+}
+}
+// 【空から降るフルーツ（8mごと）のアップデートと当たり判定処理】
+for (let i = 0; i < fruits.length; i++) {
+let f = fruits[i];
+if (f.isDead) continue;
+
+// 空から地面の少し上に向かってゆっくり落下させる
+if (f.y < f.targetY) {
+f.y += f.speed;
+} else {
+f.y = f.targetY; // 着地したらその場をキープ
+}
+
+// プレイヤーとフルーツの当たり判定チェック
+if (catPlayer.x < f.x + f.size &&
+catPlayer.x + catPlayer.size > f.x &&
+catPlayer.y < f.y + f.size &&
+catPlayer.y + catPlayer.size > f.y) {
+
+// 上から踏んづけたかどうかのチェック
+let isStomping = (catPlayer.y + catPlayer.size - catPlayer.vy <= f.y + f.size * 0.5) && (catPlayer.vy > 0);
+
+if (isStomping) {
+f.isDead = true;
+catPlayer.vy = catPlayer.jumpForce * 0.8; // ポコっと上に弾む
+playStompSound(); // 踏みつけの「ポコ音」を鳴らす
+
+game.score += 150; // 空中敵は少し高めのスコア
+game.coins += 1;
+updateUI();
+} else {
+// 避けれずぶつかったらゲームオーバー演出へ
+triggerGameOver();
+return;
+}
+}
+}
+
+// 【ライバル猫（10mごと）の移動処理（当たり判定は一切無し）】
+for (let i = 0; i < rivals.length; i++) {
+let r = rivals[i];
+// 画面の左側に向かってのんびりとしたペースで自動的に進む
+r.x -= r.speed;
+}
+}
+// 敵や障害物に触れてミスになった瞬間に呼び出される関数
+function triggerGameOver() {
+game.isGameOver = true;
+game.gameOverTimer = 0;
+
+// スローモーションの速度（テンポよくかつドラマチックにぶっ飛ぶ絶妙なスピード）
+game.slowMotionFactor = 0.45;
+
+// ポーンという楽しげなぶっ飛び効果音を鳴らす
+playGameOverSound();
+
+// 衝撃で上空へポーンと勢いよく弾け飛ぶ初期速度を設定
+catPlayer.vy = -14;
+// 進行方向とは逆（または少し後ろ）に吹っ飛ぶように微調整
+catPlayer.vx = catPlayer.facingRight ? -3 : 3;
+}
+
+// ゲームオーバー中のアニメーション（超回転スローモーション落下）を更新する関数
+function updateGameOverSequence() {
+// 重力の影響を受けて、ゆっくりと放物線を描いて落ちていく
+// スローモーション倍率（slowMotionFactor）を掛けて時間の進みを遅くする
+catPlayer.vy += catPlayer.gravity * game.slowMotionFactor;
+catPlayer.x += catPlayer.vx * game.slowMotionFactor;
+catPlayer.y += catPlayer.vy * game.slowMotionFactor;
+
+// 完全に画面の下外へと落ちきったかどうかをチェック（GAME_HEIGHTは450）
+if (catPlayer.y > GAME_HEIGHT + 150) {
+// リザルト数値を反映
+document.getElementById('finalDistance').innerText = game.distance.toFixed(1);
+document.getElementById('finalSteps').innerText = game.steps;
+document.getElementById('finalCoins').innerText = game.coins;
+document.getElementById('finalScore').innerText = game.score;
+
+// 画面の明るさはそのまま、左下にコンパクトなリザルトパネルをポンと表示
+document.getElementById('gameOverPanel').style.display = 'block';
+}
+}
+// ゲーム画面全体を描画するメイン関数（毎フレーム実行）
+function draw() {
+// 画面を一度きれいにクリアする
+ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+
+// 【背景の描画（カメラの動きに合わせてスクロール）】
+ctx.save();
+// 遠くの景色のスクロール（ゆっくり動かして奥行き感を出す）
+let bgScroll = (game.cameraX * 0.2) % GAME_WIDTH;
+
+// 空に浮かぶ可愛い雲の描画
+ctx.fillStyle = "rgba(255, 255, 255, 0.75)";
+for (let i = 0; i < 3; i++) {
+let cloudX = (i * 300 - bgScroll + GAME_WIDTH) % (GAME_WIDTH + 150) - 50;
+ctx.beginPath();
+ctx.arc(cloudX, 80 + i * 20, 25, 0, Math.PI * 2);
+ctx.arc(cloudX + 20, 75 + i * 20, 30, 0, Math.PI * 2);
+ctx.arc(cloudX + 40, 80 + i * 20, 20, 0, Math.PI * 2);
+ctx.fill();
+}
+ctx.restore();
+
+// 【ここからカメラのスクロール領域（ゲーム内座標空間）の描画】
+ctx.save();
+ctx.translate(-game.cameraX, 0);
+
+// 平らで安全な一本道の「地面」をずっと先まで描き続ける
+ctx.fillStyle = '#4caf50'; // マリオ風の鮮やかな緑色の芝生
+ctx.fillRect(game.cameraX, GROUND_Y, GAME_WIDTH + 50, GAME_HEIGHT - GROUND_Y);
+
+// 地面の土層の描画
+ctx.fillStyle = '#cd853f'; // 茶色の土
+ctx.fillRect(game.cameraX, GROUND_Y + 12, GAME_WIDTH + 50, GAME_HEIGHT - GROUND_Y - 12);
+
+// 地面の飾りライン
+ctx.fillStyle = '#8b4513';
+ctx.fillRect(game.cameraX, GROUND_Y + 8, GAME_WIDTH + 50, 4);
+// 【地上の敵（5mごと）の描画】
+for (let i = 0; i < enemies.length; i++) {
+let e = enemies[i];
+if (e.isDead) continue; // 踏まれて倒された敵は表示しない
+
+ctx.save();
+ctx.font = `${e.size}px 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif`;
+ctx.textAlign = 'left';
+ctx.textBaseline = 'top';
+ctx.fillText(e.emoji, e.x, e.y);
+ctx.restore();
+}
+
+// 【空から降るフルーツ（8mごと）の描画】
+for (let i = 0; i < fruits.length; i++) {
+let f = fruits[i];
+if (f.isDead) continue;
+
+ctx.save();
+ctx.font = `${f.size}px 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif`;
+ctx.textAlign = 'left';
+ctx.textBaseline = 'top';
+ctx.fillText(f.emoji, f.x, f.y);
+ctx.restore();
+}
+
+// 【左へゆっくり動くライバル猫（10mごと）の描画】
+for (let i = 0; i < rivals.length; i++) {
+let r = rivals[i];
+
+ctx.save();
+// ライバル猫は常に左へ歩くので、最初から左向き（反転状態）で描画
+ctx.translate(r.x + r.size / 2, r.y + r.size / 2);
+ctx.scale(-1, 1); // 左右反転で左を向かせる
+ctx.font = `${r.size}px 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif`;
+ctx.textAlign = 'center';
+ctx.textBaseline = 'middle';
+ctx.fillText(r.emoji, 0, 0);
+ctx.restore();
+}
+// 【主人公の猫ちゃん（🐈）の描画処理】
+ctx.save();
+
+// 猫の中心を基準点にして移動・回転・反転ができるように座標系をずらす
+ctx.translate(catPlayer.x + catPlayer.size / 2, catPlayer.y + catPlayer.size / 2);
+
+// ① ゲームオーバー（ミス）時の超回転ぶっ飛び演出の処理
+if (game.isGameOver) {
+// ミスした瞬間の経過時間(gameOverTimer)に応じて、クルクルと高速スピンさせる
+let rotationAngle = game.gameOverTimer * 0.4;
+ctx.rotate(rotationAngle);
+}
+
+// ② 左右ボタンや進行方向に完全に連動した「完璧なミラー反転処理」
+// 絵文字の『🐈』は標準で左を向いているため、右に進む時はスケールを反転させて右を向かせる
+if (catPlayer.facingRight) {
+ctx.scale(-1, 1); // 右を向かせるためのミラー反転
+} else {
+ctx.scale(1, 1); // そのまま左を向かせる
+}
+
+// 3倍サイズの特大ボリュームで猫の絵文字を描画！
+ctx.font = `${catPlayer.size}px 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif`;
+ctx.textAlign = 'center';
+ctx.textBaseline = 'middle';
+ctx.fillText('🐈', 0, 0);
+
+ctx.restore(); // 座標系を元に戻す
+ctx.restore(); // カメラのスクロールを元に戻す
+}
+
+// ゲームを永遠に駆動し続ける、秒間60フレームの無限メインループ
+function gameLoop() {
+update(); // 物理演算や移動、当たり判定、歩数のカウントを更新
+draw(); // 画面をきれいに再描画
+requestAnimationFrame(gameLoop); // 次のフレームの実行を予約
+}
+
+// 「もう一度遊ぶ」ボタンが押されたときのイベントを設定
+document.getElementById('retryButton').addEventListener('click', () => {
+resetGame();
+});
+
+// ページが読み込まれた瞬間にすべてを初期化し、ゲームの幕を開ける！
+resetGame();
+gameLoop();
+
+</script>
+</body>
+</html>
