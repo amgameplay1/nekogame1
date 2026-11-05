@@ -1,0 +1,2182 @@
+<html lang="ja" dir="ltr"><head>
+      <meta data-sandbox-injected="" http-equiv="Content-Security-Policy" content="
+          default-src 'none';
+          base-uri 'none';
+          connect-src https://fonts.gstatic.com https://www.gstatic.com;
+          font-src https://fonts.gstatic.com data:;
+          form-action 'none';
+          
+          worker-src blob: https://*.scf.usercontent.goog;
+          img-src data: https://encrypted-tbn0.gstatic.com https://encrypted-tbn1.gstatic.com https://encrypted-tbn2.gstatic.com https://encrypted-tbn3.gstatic.com ;
+          media-src 'none';
+          object-src 'none';
+          script-src 'unsafe-inline' 'unsafe-eval' https://www.gstatic.com https://widgetlibs.static.usercontent.goog https://*.scf.usercontent.goog;
+          style-src 'unsafe-inline' 'unsafe-eval' https://fonts.googleapis.com https://www.gstatic.com/;">
+      <meta data-sandbox-injected="" charset="UTF-8">
+      <meta data-sandbox-injected="" name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="enable-onep-api" content="false"><script data-sandbox-injected="true">(function(){var g=Object.defineProperty,k=globalThis,l=function(a,b){if(b)a:{var c=k;a=a.split(".");for(var d=0;d<a.length-1;d++){var e=a[d];if(!(e in c))break a;c=c[e]}a=a[a.length-1];d=c[a];b=b(d);b!=d&&b!=null&&g(c,a,{configurable:!0,writable:!0,value:b})}};l("Promise.withResolvers",function(a){return a?a:function(){var b,c;return{promise:new Promise(function(d,e){b=d;c=e}),resolve:b,reject:c}}});var m=function(a){return typeof a==="object"&&a!==null&&"kind"in a&&typeof a.kind==="string"&&("payload"in a||a.kind==="___CROSS_FRAME_HANDSHAKE___")},n=class{constructor(){this.j=new Map}i(a){var b=a.data;if(m(b)){let c=b.payload;if(b=this.j.get(b.kind))(a=a.ports&&a.ports.length>0?a.ports:void 0)?b(c,a):b(c)}}sendMessage(a,b,c){if(!this.port)throw Error("a");a={kind:String(a),payload:b||{}};c&&c.length>0?this.port.postMessage(a,c):this.port.postMessage(a)}},p=async function(a){var b=window.parent;
+return a.h?{}:new Promise(c=>{var d=e=>{e.source===b&&m(e.data)&&e.data.kind==="___CROSS_FRAME_HANDSHAKE___"&&(window.removeEventListener("message",d),a.port=e.ports[0],a.port.onmessage=a.i.bind(a),a.h=!0,c(e.data.payload||{}))};window.addEventListener("message",d)})},q=class extends n{constructor(){super(...arguments);this.h=!1}};if(typeof window!=="undefined"&&window.history){let a=window.history.replaceState.bind(window.history);window.history.replaceState=(c,d,e)=>{try{a(c,d,e)}catch{}};let b=window.history.pushState.bind(window.history);window.history.pushState=(c,d,e)=>{try{b(c,d,e)}catch{}}}
+if(typeof window!=="undefined"&&window.fetch){let a=window.fetch.bind(window);window.fetch=async(...b)=>{try{return await a(...b)}catch(c){b=b[0];b=typeof b==="string"?b:b&&typeof b==="object"&&"url"in b?String(b.url||""):String(b||"");if(b.includes("tracking")||b.includes("analytics")||b.includes("beacon"))return new Response(null,{status:204});throw c;}}}var {promise:r,resolve:t}=Promise.withResolvers(),{promise:u,resolve:v}=Promise.withResolvers(),w=!1;
+(async function(){var a=new q,b=await p(a);b&&b.enableSandboxToEditorSync&&(w=!!b.enableSandboxToEditorSync);if(b&&b.initialPayload){let c=b.initialPayload;window.initialPayload=c;window.setTimeout(()=>{window.dispatchEvent(new MessageEvent("message",{data:c}))},0)}t(a);(a=a.port)&&v(a)})();function x(a){r.then(b=>{b.sendMessage("ERROR",{error:a})})}window.onerror=(a,b,c,d,e)=>{x(e);return!0};
+window.onunhandledrejection=a=>{var b=String(a.reason||"");b.includes("Failed to fetch")||b.includes("Content Security Policy")||b.includes("replaceState")||x(Error(a.reason));a.preventDefault()};
+window.document.addEventListener("DOMContentLoaded",()=>{r.then(a=>{a.sendMessage("ISOLATE_READY",{});var b=window.document.querySelector("#resize-target")||window.document.body,c=NaN,d=NaN,e=!1;(new ResizeObserver(()=>{e||(e=!0,window.requestAnimationFrame(()=>{e=!1;var f=Math.ceil(b.scrollHeight),h=Math.ceil(b.scrollWidth);f===c&&h===d||f===0&&h===0||(c=f,d=h,a.sendMessage("RESIZE",{height:f,width:h}))}))})).observe(b);if(w){let f;(new MutationObserver(()=>{f&&window.clearTimeout(f);f=window.setTimeout(()=>
+{f=void 0;a.sendMessage("HTML_CHANGED",{html:"<!DOCTYPE html>\n"+window.document.documentElement.outerHTML})},500)})).observe(window.document.documentElement,{attributes:!0,childList:!0,subtree:!0,characterData:!0})}})});window.addEventListener("resizeRequest",()=>{r.then(a=>{var b=window.document.querySelector("#resize-target")||window.document.body,c=Math.ceil(b.scrollHeight);b=Math.ceil(b.scrollWidth);c===0&&b===0||a.sendMessage("MANUAL_RESIZE",{height:c,width:b})})});
+function y(a){var b=null;a instanceof Element?b=a:a&&a.nodeType===Node.TEXT_NODE&&(b=a.parentElement);if(!b)return null;for(a=b;a&&a!==window.document.body;){if(a.matches('a,button,input,textarea,select,option,details,summary,area,[jsaction],[data-jsaction],[role],[tabindex]:not([tabindex="-1"])'))return z(a);if(a instanceof HTMLElement&&a.isContentEditable)return z(a);a=a.parentElement}return null}
+function z(a){var b={tagName:a.tagName.toUpperCase(),attributes:{}},c=["role","jsaction","data-jsaction","tabindex"];for(let d of c)c=a.getAttribute(d),c!==null&&(b.attributes[d]=c);a instanceof HTMLElement&&a.isContentEditable&&(b.isContentEditable=!0);return b}window.addEventListener("click",a=>{var b=(a=a.target)?y(a):null;r.then(c=>{c.sendMessage("CLICK",{matchedNode:b})})},!0);
+window.addEventListener("request_window_open",a=>{var b=a.detail;r.then(c=>{c.sendMessage("REQUEST_WINDOW_OPEN",{url:b.url,target:b.target,features:b.features})})});window.sandboxConsoleLog=(a,b)=>{r.then(c=>{c.sendMessage("CONSOLE_LOG",{logLevel:a,message:b})})};if(document.querySelector('meta[name="enable-onep-api"]')?.getAttribute("content")==="true"){let a=!1;window.claimPortReady=()=>{if(a)return null;a=!0;return u}}window.logError=x;}).call(this);</script><script>(function(){window.open=(a,b,d)=>{var c;a&&(c=a instanceof URL?a.toString():String(a));window.dispatchEvent(new CustomEvent("request_window_open",{detail:{url:c,target:b,features:d}}));return null};var e,f,g;function h(a){a.button===0&&((e=a=(a.target instanceof Element?a.target:null)?.closest("a")??void 0)?(a=a.getBoundingClientRect(),f=a.left,g=a.top):g=f=void 0)}function k(){g=f=e=void 0}window.addEventListener("pointerdown",h,!0);window.addEventListener("mousedown",h,!0);
+window.addEventListener("pointercancel",k,!0);
+window.addEventListener("click",a=>{var b=(a.target instanceof Element?a.target:null)?.closest("a"),d=b?.getBoundingClientRect();d=a.detail>0&&b!=null&&e===b&&d!==void 0&&f!==void 0&&g!==void 0&&(Math.abs(d.left-f)>5||Math.abs(d.top-g)>5);k();if(b&&b.hasAttribute("href")){b=b.getAttribute("href")??"";var c=b.trim();c.startsWith("#")||(c=c.replace(/[\u0000-\u0020]+/g,""),c===""||/^javascript:/i.test(c)?a.preventDefault():d||a.defaultPrevented?(a.preventDefault(),a.stopPropagation()):(a.preventDefault(),
+a.stopPropagation(),window.dispatchEvent(new CustomEvent("request_window_open",{detail:{url:b,target:"_blank"}}))))}},!0);}).call(this);</script><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"><title>Generated Interactive Widget</title><script type="module" crossorigin="">
+import { jsx, jsxs } from 'https://widgetlibs.static.usercontent.goog/react/jsx-runtime-Dc9ViRTo.js';
+import React, { useState, useRef, useEffect } from 'https://widgetlibs.static.usercontent.goog/react-Dd1pKoqe.js';
+import ReactDOM from 'https://widgetlibs.static.usercontent.goog/react-dom/client-BTuQ-l8_.js';
+import { ErrorBoundary } from 'https://widgetlibs.static.usercontent.goog/react-error-boundary-BY2GTZrN.js';
+
+true              &&(function polyfill() {
+	const relList = document.createElement("link").relList;
+	if (relList && relList.supports && relList.supports("modulepreload")) return;
+	for (const link of document.querySelectorAll("link[rel=\"modulepreload\"]")) processPreload(link);
+	new MutationObserver((mutations) => {
+		for (const mutation of mutations) {
+			if (mutation.type !== "childList") continue;
+			for (const node of mutation.addedNodes) if (node.tagName === "LINK" && node.rel === "modulepreload") processPreload(node);
+		}
+	}).observe(document, {
+		childList: true,
+		subtree: true
+	});
+	function getFetchOpts(link) {
+		const fetchOpts = {};
+		if (link.integrity) fetchOpts.integrity = link.integrity;
+		if (link.referrerPolicy) fetchOpts.referrerPolicy = link.referrerPolicy;
+		if (link.crossOrigin === "use-credentials") fetchOpts.credentials = "include";
+		else if (link.crossOrigin === "anonymous") fetchOpts.credentials = "omit";
+		else fetchOpts.credentials = "same-origin";
+		return fetchOpts;
+	}
+	function processPreload(link) {
+		if (link.ep) return;
+		link.ep = true;
+		const fetchOpts = getFetchOpts(link);
+		fetch(link.href, fetchOpts);
+	}
+}());
+
+const LANG = "ja";
+const DIR = "ltr";
+const nf = (o) => new Intl.NumberFormat(LANG, { ...o, numberingSystem: "latn" });
+const fmt = (v, digits = 1, unit = "") => {
+  const n = nf({ minimumFractionDigits: digits, maximumFractionDigits: digits }).format(Math.abs(v) < 0.5 * 10 ** -digits ? 0 : v);
+  return n + unit;
+};
+const fmtDistance = (v, unit = "") => {
+  return nf({ minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(v) + unit;
+};
+function ErrorFallback({ error }) {
+  return /* @__PURE__ */ jsxs("div", { className: "p-5 text-error text-sm font-medium bg-card", children: [
+    "何かが深刻に間違っているようです: ",
+    error.message
+  ] });
+}
+function App() {
+  return /* @__PURE__ */ jsx(ErrorBoundary, { FallbackComponent: ErrorFallback, children: /* @__PURE__ */ jsx(GameWidget, {}) });
+}
+function GameWidget() {
+  const viewWidth = 800;
+  const viewHeight = 400;
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [frameTick, setFrameTick] = useState(0);
+  const [catRotation, setCatRotation] = useState(0);
+  const [score, setScore] = useState(0);
+  const [coins, setCoins] = useState(0);
+  const [distance, setDistance] = useState(0);
+  const [steps, setSteps] = useState(0);
+  const [gameState, setGameState] = useState("playing");
+  const [facing, setFacing] = useState("right");
+  const [speedMultiplier, setSpeedMultiplier] = useState(1);
+  const catRef = useRef({
+    x: 150,
+    y: 200,
+    vy: 0,
+    w: 108,
+    h: 108,
+    isGrounded: true,
+    jumpCount: 0
+  });
+  const [isMovingLeft, setIsMovingLeft] = useState(false);
+  const [isMovingRight, setIsMovingRight] = useState(false);
+  const worldProgressRef = useRef(150);
+  const platformsRef = useRef([]);
+  const itemsRef = useRef([]);
+  const obstaclesRef = useRef([]);
+  const lastGeneratedXRef = useRef(400);
+  const nextIdRef = useRef(1);
+  const lastSpawned5mRef = useRef(0);
+  const lastSpawned8mRef = useRef(0);
+  const lastSpawned10mRef = useRef(0);
+  const ENEMY_EMOJIS = ["🐟", "💩", "🦀", "🐙", "👾", "👻", "🐊", "🐸"];
+  const FRUIT_EMOJIS = ["🍎", "🍌", "🍈", "🍉", "🍇", "🍓", "🍊", "🍍"];
+  const resetGame = () => {
+    catRef.current = {
+      x: 150,
+      y: 200,
+      vy: 0,
+      w: 108,
+      h: 108,
+      isGrounded: true,
+      jumpCount: 0
+    };
+    worldProgressRef.current = 150;
+    setFacing("right");
+    setIsMovingLeft(false);
+    setIsMovingRight(false);
+    setCatRotation(0);
+    platformsRef.current = [
+      { x: -500, y: 320, w: 1e4, h: 80 }
+    ];
+    itemsRef.current = [
+      { id: nextIdRef.current++, x: 470, y: 250, type: "coin", collected: false },
+      { id: nextIdRef.current++, x: 720, y: 220, type: "star", collected: false },
+      { id: nextIdRef.current++, x: 250, y: 270, type: "coin", collected: false }
+    ];
+    obstaclesRef.current = [];
+    lastGeneratedXRef.current = 1400;
+    lastSpawned5mRef.current = 0;
+    lastSpawned8mRef.current = 0;
+    lastSpawned10mRef.current = 0;
+    setScore(0);
+    setCoins(0);
+    setDistance(0);
+    setSteps(0);
+    setGameState("playing");
+  };
+  useEffect(() => {
+    resetGame();
+  }, []);
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (gameState === "gameover") return;
+      if (e.code === "Space" || e.code === "ArrowUp") {
+        e.preventDefault();
+        triggerJump();
+      }
+      if (e.code === "ArrowLeft") {
+        setFacing("left");
+        setIsMovingLeft(true);
+      }
+      if (e.code === "ArrowRight") {
+        setFacing("right");
+        setIsMovingRight(true);
+      }
+    };
+    const handleKeyUp = (e) => {
+      if (e.code === "ArrowLeft") {
+        setIsMovingLeft(false);
+      }
+      if (e.code === "ArrowRight") {
+        setIsMovingRight(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("keyup", handleKeyUp);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("keyup", handleKeyUp);
+    };
+  }, [gameState]);
+  const playComedicBounceSound = () => {
+    try {
+      if (!audioCtxRef.current) {
+        audioCtxRef.current = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      const ctx = audioCtxRef.current;
+      if (ctx.state === "suspended") {
+        ctx.resume();
+      }
+      const now = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const gainNode = ctx.createGain();
+      osc.type = "sawtooth";
+      osc.frequency.setValueAtTime(150, now);
+      osc.frequency.exponentialRampToValueAtTime(750, now + 0.15);
+      osc.frequency.linearRampToValueAtTime(300, now + 0.3);
+      gainNode.gain.setValueAtTime(0.2, now);
+      gainNode.gain.linearRampToValueAtTime(0.15, now + 0.15);
+      gainNode.gain.exponentialRampToValueAtTime(1e-3, now + 0.35);
+      osc.connect(gainNode);
+      gainNode.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.35);
+      const osc2 = ctx.createOscillator();
+      const gainNode2 = ctx.createGain();
+      osc2.type = "triangle";
+      osc2.frequency.setValueAtTime(300, now);
+      osc2.frequency.exponentialRampToValueAtTime(120, now + 0.25);
+      gainNode2.gain.setValueAtTime(0.25, now);
+      gainNode2.gain.exponentialRampToValueAtTime(1e-3, now + 0.3);
+      osc2.connect(gainNode2);
+      gainNode2.connect(ctx.destination);
+      osc2.start(now);
+      osc2.stop(now + 0.3);
+    } catch (e) {
+      console.warn("Audio context game over sound error:", e);
+    }
+  };
+  const playPokoSound = () => {
+    try {
+      if (!audioCtxRef.current) {
+        audioCtxRef.current = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      const ctx = audioCtxRef.current;
+      if (ctx.state === "suspended") {
+        ctx.resume();
+      }
+      const now = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const gainNode = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(600, now);
+      osc.frequency.exponentialRampToValueAtTime(180, now + 0.08);
+      gainNode.gain.setValueAtTime(0.25, now);
+      gainNode.gain.exponentialRampToValueAtTime(1e-3, now + 0.1);
+      osc.connect(gainNode);
+      gainNode.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.1);
+    } catch (e) {
+      console.warn("Audio context poko sound error:", e);
+    }
+  };
+  const triggerGameOver = () => {
+    if (gameState === "gameover") return;
+    setGameState("gameover");
+    playComedicBounceSound();
+    const cat = catRef.current;
+    cat.vy = -6.5;
+    cat.isGrounded = false;
+  };
+  const playCuteJumpSound = () => {
+    try {
+      if (!audioCtxRef.current) {
+        audioCtxRef.current = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      const ctx = audioCtxRef.current;
+      if (ctx.state === "suspended") {
+        ctx.resume();
+      }
+      const osc = ctx.createOscillator();
+      const gainNode = ctx.createGain();
+      osc.type = "triangle";
+      const baseFreq = 520 + Math.random() * 50;
+      osc.frequency.setValueAtTime(baseFreq, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(baseFreq * 2.2, ctx.currentTime + 0.15);
+      gainNode.gain.setValueAtTime(0.15, ctx.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(1e-3, ctx.currentTime + 0.18);
+      osc.connect(gainNode);
+      gainNode.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.18);
+    } catch (e) {
+      console.warn("Audio context jump error:", e);
+    }
+  };
+  const triggerJump = () => {
+    if (gameState === "gameover") return;
+    const cat = catRef.current;
+    if (cat.isGrounded) {
+      cat.vy = -14;
+      cat.isGrounded = false;
+      cat.jumpCount = 1;
+      playCuteJumpSound();
+    } else if (cat.jumpCount < 2) {
+      cat.vy = -12;
+      cat.jumpCount = 2;
+      playCuteJumpSound();
+    }
+  };
+  const lastTimeRef = useRef(performance.now());
+  const audioCtxRef = useRef(null);
+  const lastStepTimeRef = useRef(0);
+  const playCuteStepSound = () => {
+    try {
+      if (!audioCtxRef.current) {
+        audioCtxRef.current = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      const ctx = audioCtxRef.current;
+      if (ctx.state === "suspended") {
+        ctx.resume();
+      }
+      const osc = ctx.createOscillator();
+      const gainNode = ctx.createGain();
+      osc.type = "sine";
+      const baseFreq = 380 + Math.random() * 40;
+      osc.frequency.setValueAtTime(baseFreq, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(baseFreq * 2.2, ctx.currentTime + 0.08);
+      const modOsc = ctx.createOscillator();
+      const modGain = ctx.createGain();
+      modOsc.type = "triangle";
+      modOsc.frequency.setValueAtTime(50, ctx.currentTime);
+      modGain.gain.setValueAtTime(80, ctx.currentTime);
+      modOsc.connect(modGain);
+      modGain.connect(osc.frequency);
+      gainNode.gain.setValueAtTime(0.12, ctx.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(1e-3, ctx.currentTime + 0.09);
+      osc.connect(gainNode);
+      gainNode.connect(ctx.destination);
+      modOsc.start();
+      osc.start();
+      modOsc.stop(ctx.currentTime + 0.1);
+      osc.stop(ctx.currentTime + 0.1);
+    } catch (e) {
+      console.warn("Audio context error:", e);
+    }
+  };
+  useEffect(() => {
+    if (!isPlaying) return;
+    lastTimeRef.current = performance.now();
+    let frameId;
+    const tick = (now) => {
+      const delta = Math.min((now - lastTimeRef.current) / 1e3, 0.1);
+      lastTimeRef.current = now;
+      const effectiveDelta = gameState === "gameover" ? delta * 0.3375 : delta;
+      const baseSpeed = 220 * speedMultiplier;
+      const cat = catRef.current;
+      if (gameState === "gameover") {
+        setCatRotation((prev) => prev + 500 * effectiveDelta);
+        cat.vy += 12 * effectiveDelta;
+        cat.y += cat.vy;
+        setFrameTick((t) => t + 1);
+        frameId = requestAnimationFrame(tick);
+        return;
+      }
+      const isMoving = isMovingLeft || isMovingRight;
+      if (isMoving) {
+        if (isMovingLeft) {
+          cat.x -= baseSpeed * delta;
+        }
+        if (isMovingRight) {
+          cat.x += baseSpeed * delta;
+        }
+        if (cat.isGrounded && now - lastStepTimeRef.current > 220 / speedMultiplier) {
+          playCuteStepSound();
+          lastStepTimeRef.current = now;
+          setSteps((prevSteps) => {
+            const nextSteps = prevSteps + 1;
+            const newDistance = nextSteps * 0.2;
+            setDistance(newDistance);
+            if (isMovingRight) {
+              const currentMilestone = Math.floor(newDistance / 5);
+              if (currentMilestone > lastSpawned5mRef.current) {
+                lastSpawned5mRef.current = currentMilestone;
+                const randomEmoji = ENEMY_EMOJIS[Math.floor(Math.random() * ENEMY_EMOJIS.length)];
+                obstaclesRef.current.push({
+                  id: nextIdRef.current++,
+                  x: cat.x + 450,
+                  // Spawn ahead on the ground path
+                  y: 285,
+                  w: 36,
+                  h: 36,
+                  type: "emoji",
+                  emoji: randomEmoji
+                });
+              }
+              const current8mMilestone = Math.floor(newDistance / 8);
+              if (current8mMilestone > lastSpawned8mRef.current) {
+                lastSpawned8mRef.current = current8mMilestone;
+                const randomFruit = FRUIT_EMOJIS[Math.floor(Math.random() * FRUIT_EMOJIS.length)];
+                obstaclesRef.current.push({
+                  id: nextIdRef.current++,
+                  x: cat.x + 350 + Math.random() * 100,
+                  // Spawn ahead horizontally
+                  y: -50,
+                  // Start high up in the sky
+                  w: 40,
+                  h: 40,
+                  type: "emoji",
+                  emoji: randomFruit
+                });
+              }
+              const current10mMilestone = Math.floor(newDistance / 10);
+              if (current10mMilestone > lastSpawned10mRef.current) {
+                lastSpawned10mRef.current = current10mMilestone;
+                obstaclesRef.current.push({
+                  id: nextIdRef.current++,
+                  x: cat.x + 480,
+                  // Spawn ahead on the ground path
+                  y: 260,
+                  // Configured to place it perfectly flush with the 320px ground line (320 - 60 = 260)
+                  w: 60,
+                  h: 60,
+                  type: "rival",
+                  emoji: "🐈"
+                });
+              }
+            }
+            return nextSteps;
+          });
+        }
+      }
+      const targetCamX = cat.x - viewWidth / 2 + cat.w / 2;
+      worldProgressRef.current += (targetCamX - worldProgressRef.current) * 0.1;
+      if (worldProgressRef.current < -500) worldProgressRef.current = -500;
+      obstaclesRef.current.forEach((obs) => {
+        if (obs.type === "rival") {
+          obs.x -= 40 * delta;
+        }
+        if (obs.type === "emoji" && FRUIT_EMOJIS.includes(obs.emoji || "")) {
+          obs.y += 65 * delta;
+        }
+      });
+      cat.vy += 32 * delta;
+      cat.y += cat.vy;
+      let dynamicGrounded = false;
+      cat.y + cat.h;
+      cat.x + cat.w;
+      if (cat.y > 400 && gameState === "playing") {
+        triggerGameOver();
+      }
+      const catWorldX = cat.x;
+      let currentFloorY = 999;
+      platformsRef.current.forEach((plat) => {
+        if (catWorldX + cat.w > plat.x && catWorldX < plat.x + plat.w && cat.y + cat.h >= plat.y && cat.y + cat.h - cat.vy <= plat.y + 14) {
+          if (cat.vy >= 0) {
+            currentFloorY = plat.y;
+            dynamicGrounded = true;
+          }
+        }
+      });
+      if (dynamicGrounded) {
+        cat.y = currentFloorY - cat.h;
+        cat.vy = 0;
+        cat.isGrounded = true;
+        cat.jumpCount = 0;
+      } else {
+        cat.isGrounded = false;
+      }
+      itemsRef.current.forEach((item) => {
+        if (!item.collected) {
+          const distIdx = Math.abs(item.x - (catWorldX + cat.w / 2));
+          const distIdy = Math.abs(item.y - (cat.y + cat.h / 2));
+          if (distIdx < cat.w / 2 + 12 && distIdy < cat.h / 2 + 12) {
+            item.collected = true;
+            if (item.type === "coin") {
+              setCoins((c) => c + 1);
+              setScore((s) => s + 100);
+            } else {
+              setScore((s) => s + 500);
+            }
+          }
+        }
+      });
+      obstaclesRef.current.forEach((obs) => {
+        if (obs.defeated) return;
+        if (obs.type === "rival") return;
+        let hitW = obs.w;
+        let hitH = obs.h;
+        let offsetX = 0;
+        let offsetY = 0;
+        if (obs.type === "pipe" ? true : false) {
+          hitW = obs.w * 0.3;
+          hitH = obs.h * 0.3;
+          offsetX = (obs.w - hitW) / 2;
+          offsetY = obs.h - hitH;
+        }
+        const obsHitX = obs.x + offsetX;
+        const obsHitY = obs.y + offsetY;
+        const overlapX = catWorldX + cat.w > obsHitX && catWorldX < obsHitX + hitW;
+        const overlapY = cat.y + cat.h > obsHitY && cat.y < obsHitY + hitH;
+        if (overlapX && overlapY) {
+          const isFruit = obs.type === "emoji" && FRUIT_EMOJIS.includes(obs.emoji || "");
+          if (!isFruit && (obs.type === "goomba" || obs.type === "emoji") && cat.vy > 0 && cat.y + cat.h - cat.vy <= obsHitY + 14) {
+            obs.defeated = true;
+            cat.vy = -12;
+            setScore((s) => s + 200);
+            playPokoSound();
+          } else {
+            triggerGameOver();
+          }
+        }
+      });
+      if (lastGeneratedXRef.current < cat.x + 800) {
+        const nextX = lastGeneratedXRef.current + Math.random() * 150 + 200;
+        platformsRef.current.push({
+          x: lastGeneratedXRef.current - 100,
+          y: 320,
+          w: nextX - lastGeneratedXRef.current + 600,
+          h: 80
+        });
+        if (Math.random() < 0.4) {
+          itemsRef.current.push({
+            id: nextIdRef.current++,
+            x: nextX + 100,
+            y: 250,
+            type: Math.random() > 0.85 ? "star" : "coin",
+            collected: false
+          });
+        }
+        lastGeneratedXRef.current = nextX + 400;
+      }
+      setFrameTick((t) => t + 1);
+      frameId = requestAnimationFrame(tick);
+    };
+    frameId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frameId);
+  }, [isPlaying, gameState, speedMultiplier, isMovingLeft, isMovingRight]);
+  return /* @__PURE__ */ jsxs("div", { dir: DIR, lang: LANG, className: "w-full bg-card text-foreground select-none", children: [
+    /* @__PURE__ */ jsxs("div", { className: "relative w-full aspect-video min-h-[220px] max-h-[440px] overflow-hidden border-b border-border bg-sky-400", children: [
+      /* @__PURE__ */ jsxs("div", { className: "absolute top-3 start-3 z-10 bg-black/50 backdrop-blur-xs text-white rounded-xl p-2 flex flex-col gap-1 shadow-sm pointer-events-none", children: [
+        /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-1.5", children: [
+          /* @__PURE__ */ jsx("span", { className: "material-icons !text-sm text-yellow-300", children: "trending_flat" }),
+          /* @__PURE__ */ jsx("span", { className: "text-xs font-medium tracking-wide opacity-90", children: "距離:" }),
+          /* @__PURE__ */ jsx("span", { className: "text-base font-bold tabular-nums text-yellow-300", children: fmtDistance(distance) }),
+          /* @__PURE__ */ jsx("span", { className: "text-xs font-medium opacity-90", children: "m" })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-1.5 border-t border-white/10 pt-1", children: [
+          /* @__PURE__ */ jsx("span", { className: "material-icons !text-sm text-green-300", children: "directions_walk" }),
+          /* @__PURE__ */ jsx("span", { className: "text-xs font-medium tracking-wide opacity-90", children: "歩数:" }),
+          /* @__PURE__ */ jsx("span", { className: "text-base font-bold tabular-nums text-green-300", children: fmt(steps, 0) }),
+          /* @__PURE__ */ jsx("span", { className: "text-xs font-medium opacity-90", children: "歩" })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsx("div", { className: "absolute top-0 end-0 p-3 z-10 flex items-center justify-end pointer-events-none", children: /* @__PURE__ */ jsx(
+        "button",
+        {
+          onClick: () => setIsPlaying(!isPlaying),
+          className: "w-9 h-9 rounded-full flex items-center justify-center cursor-pointer transition-colors bg-white/80 hover:bg-white text-zinc-800 focus:outline-none focus:ring-2 focus:ring-primary pointer-events-auto relative overflow-visible after:absolute after:-inset-1",
+          "aria-label": isPlaying ? "アニメーションを一時停止" : "アニメーションを再生",
+          children: /* @__PURE__ */ jsx("span", { className: "material-icons !text-base", children: isPlaying ? "pause" : "play_arrow" })
+        }
+      ) }),
+      gameState === "gameover" && /* @__PURE__ */ jsxs("div", { className: "absolute bottom-3 start-3 z-20 flex flex-col gap-1.5 p-2 bg-white/90 backdrop-blur-md rounded-xl text-zinc-900 text-xs border border-zinc-200/50 min-w-[180px] shadow-lg animate-fade-in", children: [
+        /* @__PURE__ */ jsxs("div", { className: "font-bold text-zinc-800 flex items-center gap-1", children: [
+          /* @__PURE__ */ jsx("span", { children: "ゲームオーバー" }),
+          /* @__PURE__ */ jsx("span", { children: "🐈💨" })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "flex justify-between gap-4 border-b border-zinc-100 pb-0.5 text-[11px]", children: [
+          /* @__PURE__ */ jsx("span", { className: "text-zinc-500", children: "走行距離:" }),
+          /* @__PURE__ */ jsx("span", { className: "font-bold text-primary", children: fmtDistance(distance, "m") })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "flex justify-between gap-4 text-[11px]", children: [
+          /* @__PURE__ */ jsx("span", { className: "text-zinc-500", children: "合計歩数:" }),
+          /* @__PURE__ */ jsx("span", { className: "font-bold text-success", children: fmt(steps, 0, "歩") })
+        ] }),
+        /* @__PURE__ */ jsx(
+          "button",
+          {
+            onClick: resetGame,
+            className: "mt-1 rounded-full bg-primary text-white text-[11px] font-medium h-7 px-3 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-primary shadow-sm hover:opacity-90 active:scale-95 transition-all text-center",
+            children: "もう一度挑戦する"
+          }
+        )
+      ] }),
+      /* @__PURE__ */ jsxs(
+        "svg",
+        {
+          role: "img",
+          "aria-label": "猫のキャラクターが右に走り続けるエンドレスランナーゲーム",
+          viewBox: `0 0 ${viewWidth} ${viewHeight}`,
+          className: "w-full h-full",
+          onClick: triggerJump,
+          children: [
+            /* @__PURE__ */ jsx("g", { opacity: "0.6", children: [0, 1, 2, 3].map((i) => {
+              const cloudX = (i * 300 - worldProgressRef.current * 0.2) % (viewWidth + 150) - 60;
+              return /* @__PURE__ */ jsx(
+                "path",
+                {
+                  d: "M 0 20 A 15 15 0 0 1 30 20 A 20 20 0 0 1 70 20 A 15 15 0 0 1 90 20 A 10 10 0 0 1 90 25 L 0 25 Z",
+                  transform: `translate(${cloudX}, ${40 + i * 20}) scale(0.8)`,
+                  fill: "#ffffff"
+                },
+                i
+              );
+            }) }),
+            platformsRef.current.map((plat, idx) => {
+              const screenX = plat.x - worldProgressRef.current;
+              return /* @__PURE__ */ jsxs("g", { transform: `translate(${screenX}, ${plat.y})`, children: [
+                /* @__PURE__ */ jsx(
+                  "rect",
+                  {
+                    width: plat.w,
+                    height: plat.h,
+                    fill: "#e55e2d",
+                    stroke: "#a03010",
+                    strokeWidth: 2
+                  }
+                ),
+                /* @__PURE__ */ jsx(
+                  "rect",
+                  {
+                    width: plat.w,
+                    height: 6,
+                    fill: "#73bf24"
+                  }
+                ),
+                /* @__PURE__ */ jsx("line", { x1: 0, y1: 14, x2: plat.w, y2: 14, stroke: "#a03010", strokeWidth: 1, opacity: 0.4 }),
+                /* @__PURE__ */ jsx("line", { x1: 0, y1: 28, x2: plat.w, y2: 28, stroke: "#a03010", strokeWidth: 1, opacity: 0.4 })
+              ] }, idx);
+            }),
+            itemsRef.current.map((item) => {
+              if (item.collected) return null;
+              const screenX = item.x - worldProgressRef.current;
+              return /* @__PURE__ */ jsx("g", { transform: `translate(${screenX}, ${item.y})`, children: item.type === "coin" ? /* @__PURE__ */ jsx("circle", { r: 10, fill: "#fbbc04", stroke: "#d49a00", strokeWidth: 1.5 }) : (
+                // Star design path
+                /* @__PURE__ */ jsx(
+                  "path",
+                  {
+                    d: "M 0 -12 L 3 -3 L 12 -3 L 5 3 L 8 12 L 0 6 L -8 12 L -5 3 L -12 -3 L -3 -3 Z",
+                    fill: "#ffeb3b",
+                    stroke: "#f57f17",
+                    strokeWidth: 1,
+                    transform: "scale(0.9)"
+                  }
+                )
+              ) }, item.id);
+            }),
+            obstaclesRef.current.map((obs) => {
+              if (obs.defeated) return null;
+              const screenX = obs.x - worldProgressRef.current;
+              return /* @__PURE__ */ jsx("g", { transform: `translate(${screenX}, ${obs.y})`, children: obs.type === "pipe" ? /* @__PURE__ */ jsxs("g", { transform: `translate(0, 0)`, children: [
+                /* @__PURE__ */ jsx("rect", { width: obs.w, height: obs.h, fill: "#2e7d32", stroke: "#1b5e20", strokeWidth: 2 }),
+                /* @__PURE__ */ jsx("rect", { x: -3, width: obs.w + 6, height: 12, fill: "#4caf50", stroke: "#1b5e20", strokeWidth: 2 })
+              ] }) : obs.type === "emoji" ? (
+                /* Custom Emoji Enemy */
+                /* @__PURE__ */ jsx("g", { transform: `translate(${obs.w / 2}, ${obs.h / 2})`, children: /* @__PURE__ */ jsx("text", { x: 0, y: 10, fontSize: 28, textAnchor: "middle", children: obs.emoji || "💩" }) })
+              ) : obs.type === "rival" ? (
+                /* Rival Cat Emoji scaled exactly 1.25 times larger than previous size, flush to the ground with no collision */
+                /* Adjusted y to 55 so the bottom line alignment of emoji text matches the height exactly */
+                /* @__PURE__ */ jsx("g", { transform: `translate(0, 0)`, children: /* @__PURE__ */ jsx("text", { x: 0, y: 55, fontSize: 60, textAnchor: "start", children: "🐈" }) })
+              ) : (
+                /* Goomba enemy representation */
+                /* @__PURE__ */ jsxs("g", { transform: `translate(${obs.w / 2}, ${obs.h / 2})`, children: [
+                  /* @__PURE__ */ jsx("circle", { r: 14, fill: "#8d6e63", stroke: "#5d4037", strokeWidth: 2 }),
+                  /* @__PURE__ */ jsx("rect", { x: -8, y: 6, width: 16, height: 8, fill: "#d7ccc8" }),
+                  /* @__PURE__ */ jsx("circle", { cx: -4, cy: -2, r: 2, fill: "#000" }),
+                  /* @__PURE__ */ jsx("circle", { cx: 4, cy: -2, r: 2, fill: "#000" })
+                ] })
+              ) }, obs.id);
+            }),
+            /* @__PURE__ */ jsx("g", { transform: `translate(${catRef.current.x - worldProgressRef.current}, ${catRef.current.y})`, children: /* @__PURE__ */ jsx("g", { transform: `translate(54, 54) rotate(${catRotation}) translate(-54, -54)`, children: /* @__PURE__ */ jsx(
+              "text",
+              {
+                x: 0,
+                y: 104,
+                fontSize: 96,
+                textAnchor: "middle",
+                transform: facing === "right" ? "translate(54, 0) scale(-1, 1) translate(-54, 0)" : "translate(54, 0)",
+                children: "🐈"
+              }
+            ) }) })
+          ]
+        }
+      )
+    ] }),
+    /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-center gap-x-4 sm:gap-x-8 md:gap-x-12 border-b border-border px-5 py-3 shrink-0", children: [
+      /* @__PURE__ */ jsxs("div", { className: "flex flex-col items-center gap-0.5 min-w-0 flex-1", children: [
+        /* @__PURE__ */ jsx("span", { className: "text-xs text-muted-foreground font-medium truncate text-center w-full", children: "スコア" }),
+        /* @__PURE__ */ jsx("span", { className: "text-sm font-medium text-foreground tabular-nums truncate text-center w-full", children: fmt(score, 0) })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "flex flex-col items-center gap-0.5 min-w-0 flex-1", children: [
+        /* @__PURE__ */ jsx("span", { className: "text-xs text-muted-foreground font-medium truncate text-center w-full", children: "コイン" }),
+        /* @__PURE__ */ jsx("span", { className: "text-sm font-medium text-foreground tabular-nums truncate text-center w-full", children: fmt(coins, 0) })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "flex flex-col items-center gap-0.5 min-w-0 flex-1", children: [
+        /* @__PURE__ */ jsx("span", { className: "text-xs text-muted-foreground font-medium truncate text-center w-full", children: "距離" }),
+        /* @__PURE__ */ jsx("span", { className: "text-sm font-medium text-foreground tabular-nums truncate text-center w-full", children: fmtDistance(distance, "m") })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "flex flex-col items-center gap-0.5 min-w-0 flex-1", children: [
+        /* @__PURE__ */ jsx("span", { className: "text-xs text-muted-foreground font-medium truncate text-center w-full", children: "歩数" }),
+        /* @__PURE__ */ jsx("span", { className: "text-sm font-medium text-foreground tabular-nums truncate text-center w-full", children: fmt(steps, 0, "歩") })
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxs("div", { className: "p-5 flex flex-col gap-4", children: [
+      /* @__PURE__ */ jsxs("div", { className: "flex flex-col gap-1.5 w-full", children: [
+        /* @__PURE__ */ jsx("label", { className: "text-sm font-medium text-muted-foreground", children: "進行速度の調整" }),
+        /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3 w-full", children: [
+          /* @__PURE__ */ jsx(
+            "input",
+            {
+              type: "range",
+              min: "0.6",
+              max: "1.6",
+              step: "0.2",
+              value: speedMultiplier,
+              onChange: (e) => setSpeedMultiplier(parseFloat(e.target.value)),
+              className: "grow h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary",
+              "aria-label": "ゲームの進行速度"
+            }
+          ),
+          /* @__PURE__ */ jsx("span", { className: "w-[8ch] text-end shrink-0 whitespace-nowrap text-sm font-medium tabular-nums", children: fmt(speedMultiplier, 1, "x") })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "flex flex-col gap-2 bg-muted p-3 rounded-xl", children: [
+        /* @__PURE__ */ jsx("span", { className: "text-xs text-muted-foreground font-medium text-center", children: "🐈の移動・アクション操作ボタン" }),
+        /* @__PURE__ */ jsxs("div", { className: "flex justify-center items-center gap-4", children: [
+          /* @__PURE__ */ jsxs(
+            "button",
+            {
+              onMouseDown: () => {
+                setFacing("left");
+                setIsMovingLeft(true);
+              },
+              onMouseUp: () => setIsMovingLeft(false),
+              onMouseLeave: () => setIsMovingLeft(false),
+              onTouchStart: (e) => {
+                e.preventDefault();
+                setFacing("left");
+                setIsMovingLeft(true);
+              },
+              onTouchEnd: () => setIsMovingLeft(false),
+              className: `rounded-full text-xs font-medium h-10 px-4 flex items-center gap-1 transition-all bg-card text-foreground active:scale-95`,
+              children: [
+                /* @__PURE__ */ jsx("span", { className: "material-icons !text-sm", children: "arrow_back" }),
+                "左に進む (👈)"
+              ]
+            }
+          ),
+          /* @__PURE__ */ jsx(
+            "button",
+            {
+              onClick: triggerJump,
+              disabled: gameState === "gameover",
+              className: "rounded-full bg-primary text-white text-sm font-medium h-12 px-6 shadow-md hover:opacity-90 active:scale-95 transition-all disabled:opacity-40",
+              children: "ジャンプ 🚀"
+            }
+          ),
+          /* @__PURE__ */ jsxs(
+            "button",
+            {
+              onMouseDown: () => {
+                setFacing("right");
+                setIsMovingRight(true);
+              },
+              onMouseUp: () => setIsMovingRight(false),
+              onMouseLeave: () => setIsMovingRight(false),
+              onTouchStart: (e) => {
+                e.preventDefault();
+                setFacing("right");
+                setIsMovingRight(true);
+              },
+              onTouchEnd: () => setIsMovingRight(false),
+              className: `rounded-full text-xs font-medium h-10 px-4 flex items-center gap-1 transition-all bg-card text-foreground active:scale-95`,
+              children: [
+                "右に進む (👉)",
+                /* @__PURE__ */ jsx("span", { className: "material-icons !text-sm", children: "arrow_forward" })
+              ]
+            }
+          )
+        ] })
+      ] }),
+      /* @__PURE__ */ jsx("div", { className: "flex justify-end items-center", children: /* @__PURE__ */ jsx(
+        "button",
+        {
+          onClick: resetGame,
+          className: "rounded-full bg-muted text-foreground text-xs font-medium h-8 px-4 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-primary relative after:absolute after:-inset-y-1 after:inset-x-0 overflow-visible",
+          children: "最初からリセット"
+        }
+      ) })
+    ] })
+  ] });
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  /* @__PURE__ */ jsx(React.StrictMode, { children: /* @__PURE__ */ jsx(App, {}) })
+);
+
+</script><style>
+/*! tailwindcss v4.1.11 | MIT License | https://tailwindcss.com */
+@layer properties {
+  @supports (((-webkit-hyphens: none)) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color: rgb(from red r g b)))) {
+    *, :before, :after, ::backdrop {
+      --tw-scale-x: 1;
+      --tw-scale-y: 1;
+      --tw-scale-z: 1;
+      --tw-rotate-x: initial;
+      --tw-rotate-y: initial;
+      --tw-rotate-z: initial;
+      --tw-skew-x: initial;
+      --tw-skew-y: initial;
+      --tw-border-style: solid;
+      --tw-font-weight: initial;
+      --tw-tracking: initial;
+      --tw-ordinal: initial;
+      --tw-slashed-zero: initial;
+      --tw-numeric-figure: initial;
+      --tw-numeric-spacing: initial;
+      --tw-numeric-fraction: initial;
+      --tw-shadow: 0 0 #0000;
+      --tw-shadow-color: initial;
+      --tw-shadow-alpha: 100%;
+      --tw-inset-shadow: 0 0 #0000;
+      --tw-inset-shadow-color: initial;
+      --tw-inset-shadow-alpha: 100%;
+      --tw-ring-color: initial;
+      --tw-ring-shadow: 0 0 #0000;
+      --tw-inset-ring-color: initial;
+      --tw-inset-ring-shadow: 0 0 #0000;
+      --tw-ring-inset: initial;
+      --tw-ring-offset-width: 0px;
+      --tw-ring-offset-color: #fff;
+      --tw-ring-offset-shadow: 0 0 #0000;
+      --tw-outline-style: solid;
+      --tw-blur: initial;
+      --tw-brightness: initial;
+      --tw-contrast: initial;
+      --tw-grayscale: initial;
+      --tw-hue-rotate: initial;
+      --tw-invert: initial;
+      --tw-opacity: initial;
+      --tw-saturate: initial;
+      --tw-sepia: initial;
+      --tw-drop-shadow: initial;
+      --tw-drop-shadow-color: initial;
+      --tw-drop-shadow-alpha: 100%;
+      --tw-drop-shadow-size: initial;
+      --tw-backdrop-blur: initial;
+      --tw-backdrop-brightness: initial;
+      --tw-backdrop-contrast: initial;
+      --tw-backdrop-grayscale: initial;
+      --tw-backdrop-hue-rotate: initial;
+      --tw-backdrop-invert: initial;
+      --tw-backdrop-opacity: initial;
+      --tw-backdrop-saturate: initial;
+      --tw-backdrop-sepia: initial;
+      --tw-content: "";
+    }
+  }
+}
+
+@layer theme {
+  :root, :host {
+    --font-sans: "Google Sans", "Roboto", sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --color-yellow-300: oklch(90.5% .182 98.111);
+    --color-green-300: oklch(87.1% .15 154.449);
+    --color-sky-400: oklch(74.6% .16 232.661);
+    --color-zinc-100: oklch(96.7% .001 286.375);
+    --color-zinc-200: oklch(92% .004 286.32);
+    --color-zinc-500: oklch(55.2% .016 285.938);
+    --color-zinc-800: oklch(27.4% .006 286.033);
+    --color-zinc-900: oklch(21% .006 285.885);
+    --color-black: #000;
+    --color-white: #fff;
+    --spacing: .25rem;
+    --text-xs: .75rem;
+    --text-xs--line-height: calc(1 / .75);
+    --text-sm: .875rem;
+    --text-sm--line-height: calc(1.25 / .875);
+    --text-base: 1rem;
+    --text-base--line-height: calc(1.5 / 1);
+    --text-lg: 1.125rem;
+    --text-lg--line-height: calc(1.75 / 1.125);
+    --font-weight-medium: 500;
+    --font-weight-bold: 700;
+    --tracking-wide: .025em;
+    --radius-lg: .5rem;
+    --radius-xl: .75rem;
+    --blur-xs: 4px;
+    --blur-md: 12px;
+    --aspect-video: 16 / 9;
+    --default-transition-duration: .15s;
+    --default-transition-timing-function: cubic-bezier(.31, .94, .34, 1);
+    --default-font-family: var(--font-sans);
+    --default-mono-font-family: var(--font-mono);
+    --color-primary: var(--primary, #336ef3);
+    --color-primary-hover: var(--primary-hover, #395fe1);
+    --color-error: var(--brand-red, #ea4335);
+    --color-warning: var(--brand-yellow, #fbbc04);
+    --color-success: var(--brand-green, #34a853);
+    --color-background: var(--surface-container-de-emphasis, #f7f8fa);
+    --color-card: var(--surface-container-de-emphasis, #f7f8fa);
+    --color-card-hover: var(--surface-container-high, #e9ebf0);
+    --color-border: var(--divider, #dcdfe5);
+    --color-input: var(--surface-container, #f0f2f5);
+    --color-secondary: var(--surface-container-high, #e9ebf0);
+    --color-secondary-hover: var(--surface-container-highest, #e1e3e8);
+    --color-accent: var(--surface-container-highest, #e1e3e8);
+    --color-accent-foreground: var(--on-surface-default, #0a0a0a);
+    --color-muted: var(--surface-container, #f0f2f5);
+    --color-muted-foreground: var(--on-surface-de-emphasis, #56595e);
+    --color-foreground: var(--on-surface-default, #0a0a0a);
+    --color-disabled: var(--surface-container, #f0f2f5);
+    --color-disabled-foreground: var(--disabled-foreground, #95989c);
+  }
+}
+
+@layer base {
+  *, :after, :before, ::backdrop {
+    box-sizing: border-box;
+    border: 0 solid;
+    margin: 0;
+    padding: 0;
+  }
+
+  ::file-selector-button {
+    box-sizing: border-box;
+    border: 0 solid;
+    margin: 0;
+    padding: 0;
+  }
+
+  html, :host {
+    -webkit-text-size-adjust: 100%;
+    tab-size: 4;
+    line-height: 1.5;
+    font-family: var(--default-font-family, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji");
+    font-feature-settings: var(--default-font-feature-settings, normal);
+    font-variation-settings: var(--default-font-variation-settings, normal);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  hr {
+    height: 0;
+    color: inherit;
+    border-top-width: 1px;
+  }
+
+  abbr:where([title]) {
+    -webkit-text-decoration: underline dotted;
+    text-decoration: underline dotted;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-size: inherit;
+    font-weight: inherit;
+  }
+
+  a {
+    color: inherit;
+    -webkit-text-decoration: inherit;
+    -webkit-text-decoration: inherit;
+    -webkit-text-decoration: inherit;
+    text-decoration: inherit;
+  }
+
+  b, strong {
+    font-weight: bolder;
+  }
+
+  code, kbd, samp, pre {
+    font-family: var(--default-mono-font-family, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace);
+    font-feature-settings: var(--default-mono-font-feature-settings, normal);
+    font-variation-settings: var(--default-mono-font-variation-settings, normal);
+    font-size: 1em;
+  }
+
+  small {
+    font-size: 80%;
+  }
+
+  sub, sup {
+    vertical-align: baseline;
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+  }
+
+  sub {
+    bottom: -.25em;
+  }
+
+  sup {
+    top: -.5em;
+  }
+
+  table {
+    text-indent: 0;
+    border-color: inherit;
+    border-collapse: collapse;
+  }
+
+  :-moz-focusring {
+    outline: auto;
+  }
+
+  progress {
+    vertical-align: baseline;
+  }
+
+  summary {
+    display: list-item;
+  }
+
+  ol, ul, menu {
+    list-style: none;
+  }
+
+  img, svg, video, canvas, audio, iframe, embed, object {
+    vertical-align: middle;
+    display: block;
+  }
+
+  img, video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  button, input, select, optgroup, textarea {
+    font: inherit;
+    font-feature-settings: inherit;
+    font-variation-settings: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    opacity: 1;
+    background-color: #0000;
+    border-radius: 0;
+  }
+
+  ::file-selector-button {
+    font: inherit;
+    font-feature-settings: inherit;
+    font-variation-settings: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    opacity: 1;
+    background-color: #0000;
+    border-radius: 0;
+  }
+
+  :where(select:is([multiple], [size])) optgroup {
+    font-weight: bolder;
+  }
+
+  :where(select:is([multiple], [size])) optgroup option {
+    padding-inline-start: 20px;
+  }
+
+  ::file-selector-button {
+    margin-inline-end: 4px;
+  }
+
+  ::placeholder {
+    opacity: 1;
+  }
+
+  @supports (not ((-webkit-appearance: -apple-pay-button))) or (contain-intrinsic-size: 1px) {
+    ::placeholder {
+      color: currentColor;
+    }
+
+    @supports (color: color-mix(in lab, red, red)) {
+      ::placeholder {
+        color: color-mix(in oklab, currentcolor 50%, transparent);
+      }
+    }
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  ::-webkit-search-decoration {
+    -webkit-appearance: none;
+  }
+
+  ::-webkit-date-and-time-value {
+    min-height: 1lh;
+    text-align: inherit;
+  }
+
+  ::-webkit-datetime-edit {
+    display: inline-flex;
+  }
+
+  ::-webkit-datetime-edit-fields-wrapper {
+    padding: 0;
+  }
+
+  ::-webkit-datetime-edit {
+    padding-block: 0;
+  }
+
+  ::-webkit-datetime-edit-year-field {
+    padding-block: 0;
+  }
+
+  ::-webkit-datetime-edit-month-field {
+    padding-block: 0;
+  }
+
+  ::-webkit-datetime-edit-day-field {
+    padding-block: 0;
+  }
+
+  ::-webkit-datetime-edit-hour-field {
+    padding-block: 0;
+  }
+
+  ::-webkit-datetime-edit-minute-field {
+    padding-block: 0;
+  }
+
+  ::-webkit-datetime-edit-second-field {
+    padding-block: 0;
+  }
+
+  ::-webkit-datetime-edit-millisecond-field {
+    padding-block: 0;
+  }
+
+  ::-webkit-datetime-edit-meridiem-field {
+    padding-block: 0;
+  }
+
+  :-moz-ui-invalid {
+    box-shadow: none;
+  }
+
+  button, input:where([type="button"], [type="reset"], [type="submit"]) {
+    appearance: button;
+  }
+
+  ::file-selector-button {
+    appearance: button;
+  }
+
+  ::-webkit-inner-spin-button {
+    height: auto;
+  }
+
+  ::-webkit-outer-spin-button {
+    height: auto;
+  }
+
+  [hidden]:where(:not([hidden="until-found"])) {
+    display: none !important;
+  }
+}
+
+@layer components;
+
+@layer utilities {
+  .pointer-events-auto {
+    pointer-events: auto;
+  }
+
+  .pointer-events-none {
+    pointer-events: none;
+  }
+
+  .absolute {
+    position: absolute;
+  }
+
+  .relative {
+    position: relative;
+  }
+
+  .static {
+    position: static;
+  }
+
+  .inset-0 {
+    inset: calc(var(--spacing) * 0);
+  }
+
+  .start-3 {
+    inset-inline-start: calc(var(--spacing) * 3);
+  }
+
+  .end-0 {
+    inset-inline-end: calc(var(--spacing) * 0);
+  }
+
+  .top-0 {
+    top: calc(var(--spacing) * 0);
+  }
+
+  .top-3 {
+    top: calc(var(--spacing) * 3);
+  }
+
+  .bottom-3 {
+    bottom: calc(var(--spacing) * 3);
+  }
+
+  .z-10 {
+    z-index: 10;
+  }
+
+  .z-20 {
+    z-index: 20;
+  }
+
+  .my-1 {
+    margin-block: calc(var(--spacing) * 1);
+  }
+
+  .mt-1 {
+    margin-top: calc(var(--spacing) * 1);
+  }
+
+  .flex {
+    display: flex;
+  }
+
+  .table {
+    display: table;
+  }
+
+  .aspect-video {
+    aspect-ratio: var(--aspect-video);
+  }
+
+  .h-2 {
+    height: calc(var(--spacing) * 2);
+  }
+
+  .h-7 {
+    height: calc(var(--spacing) * 7);
+  }
+
+  .h-8 {
+    height: calc(var(--spacing) * 8);
+  }
+
+  .h-9 {
+    height: calc(var(--spacing) * 9);
+  }
+
+  .h-10 {
+    height: calc(var(--spacing) * 10);
+  }
+
+  .h-12 {
+    height: calc(var(--spacing) * 12);
+  }
+
+  .h-full {
+    height: 100%;
+  }
+
+  .max-h-\[440px\] {
+    max-height: 440px;
+  }
+
+  .min-h-\[220px\] {
+    min-height: 220px;
+  }
+
+  .w-9 {
+    width: calc(var(--spacing) * 9);
+  }
+
+  .w-\[8ch\] {
+    width: 8ch;
+  }
+
+  .w-full {
+    width: 100%;
+  }
+
+  .min-w-0 {
+    min-width: calc(var(--spacing) * 0);
+  }
+
+  .min-w-\[180px\] {
+    min-width: 180px;
+  }
+
+  .flex-1 {
+    flex: 1;
+  }
+
+  .flex-shrink {
+    flex-shrink: 1;
+  }
+
+  .shrink-0 {
+    flex-shrink: 0;
+  }
+
+  .flex-grow, .grow {
+    flex-grow: 1;
+  }
+
+  .border-collapse {
+    border-collapse: collapse;
+  }
+
+  .scale-105 {
+    --tw-scale-x: 105%;
+    --tw-scale-y: 105%;
+    --tw-scale-z: 105%;
+    scale: var(--tw-scale-x) var(--tw-scale-y);
+  }
+
+  .transform {
+    transform: var(--tw-rotate-x, ) var(--tw-rotate-y, ) var(--tw-rotate-z, ) var(--tw-skew-x, ) var(--tw-skew-y, );
+  }
+
+  .cursor-pointer {
+    cursor: pointer;
+  }
+
+  .resize {
+    resize: both;
+  }
+
+  .appearance-none {
+    appearance: none;
+  }
+
+  .flex-col {
+    flex-direction: column;
+  }
+
+  .items-center {
+    align-items: center;
+  }
+
+  .justify-between {
+    justify-content: space-between;
+  }
+
+  .justify-center {
+    justify-content: center;
+  }
+
+  .justify-end {
+    justify-content: flex-end;
+  }
+
+  .gap-0 {
+    gap: calc(var(--spacing) * 0);
+  }
+
+  .gap-0\.5 {
+    gap: calc(var(--spacing) * .5);
+  }
+
+  .gap-1 {
+    gap: calc(var(--spacing) * 1);
+  }
+
+  .gap-1\.5 {
+    gap: calc(var(--spacing) * 1.5);
+  }
+
+  .gap-2 {
+    gap: calc(var(--spacing) * 2);
+  }
+
+  .gap-3 {
+    gap: calc(var(--spacing) * 3);
+  }
+
+  .gap-4 {
+    gap: calc(var(--spacing) * 4);
+  }
+
+  .gap-x-4 {
+    column-gap: calc(var(--spacing) * 4);
+  }
+
+  .truncate {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .overflow-hidden {
+    overflow: hidden;
+  }
+
+  .overflow-visible {
+    overflow: visible;
+  }
+
+  .rounded-full {
+    border-radius: 3.40282e38px;
+  }
+
+  .rounded-lg {
+    border-radius: var(--radius-lg);
+  }
+
+  .rounded-xl {
+    border-radius: var(--radius-xl);
+  }
+
+  .border {
+    border-style: var(--tw-border-style);
+    border-width: 1px;
+  }
+
+  .border-t {
+    border-top-style: var(--tw-border-style);
+    border-top-width: 1px;
+  }
+
+  .border-b {
+    border-bottom-style: var(--tw-border-style);
+    border-bottom-width: 1px;
+  }
+
+  .border-border {
+    border-color: var(--color-border);
+  }
+
+  .border-white {
+    border-color: var(--color-white);
+  }
+
+  .border-white\/10 {
+    border-color: #ffffff1a;
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    .border-white\/10 {
+      border-color: color-mix(in oklab, var(--color-white) 10%, transparent);
+    }
+  }
+
+  .border-zinc-100 {
+    border-color: var(--color-zinc-100);
+  }
+
+  .border-zinc-200 {
+    border-color: var(--color-zinc-200);
+  }
+
+  .border-zinc-200\/50 {
+    border-color: #e4e4e780;
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    .border-zinc-200\/50 {
+      border-color: color-mix(in oklab, var(--color-zinc-200) 50%, transparent);
+    }
+  }
+
+  .bg-black {
+    background-color: var(--color-black);
+  }
+
+  .bg-black\/50 {
+    background-color: #00000080;
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    .bg-black\/50 {
+      background-color: color-mix(in oklab, var(--color-black) 50%, transparent);
+    }
+  }
+
+  .bg-card {
+    background-color: var(--color-card);
+  }
+
+  .bg-muted {
+    background-color: var(--color-muted);
+  }
+
+  .bg-primary {
+    background-color: var(--color-primary);
+  }
+
+  .bg-sky-400 {
+    background-color: var(--color-sky-400);
+  }
+
+  .bg-white {
+    background-color: var(--color-white);
+  }
+
+  .bg-white\/80 {
+    background-color: #fffc;
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    .bg-white\/80 {
+      background-color: color-mix(in oklab, var(--color-white) 80%, transparent);
+    }
+  }
+
+  .bg-white\/90 {
+    background-color: #ffffffe6;
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    .bg-white\/90 {
+      background-color: color-mix(in oklab, var(--color-white) 90%, transparent);
+    }
+  }
+
+  .p-2 {
+    padding: calc(var(--spacing) * 2);
+  }
+
+  .p-3 {
+    padding: calc(var(--spacing) * 3);
+  }
+
+  .p-4 {
+    padding: calc(var(--spacing) * 4);
+  }
+
+  .p-5 {
+    padding: calc(var(--spacing) * 5);
+  }
+
+  .px-3 {
+    padding-inline: calc(var(--spacing) * 3);
+  }
+
+  .px-4 {
+    padding-inline: calc(var(--spacing) * 4);
+  }
+
+  .px-5 {
+    padding-inline: calc(var(--spacing) * 5);
+  }
+
+  .px-6 {
+    padding-inline: calc(var(--spacing) * 6);
+  }
+
+  .py-1 {
+    padding-block: calc(var(--spacing) * 1);
+  }
+
+  .py-3 {
+    padding-block: calc(var(--spacing) * 3);
+  }
+
+  .pt-1 {
+    padding-top: calc(var(--spacing) * 1);
+  }
+
+  .pb-0 {
+    padding-bottom: calc(var(--spacing) * 0);
+  }
+
+  .pb-0\.5 {
+    padding-bottom: calc(var(--spacing) * .5);
+  }
+
+  .pb-1 {
+    padding-bottom: calc(var(--spacing) * 1);
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .text-end {
+    text-align: end;
+  }
+
+  .\!text-base {
+    font-size: var(--text-base) !important;
+    line-height: var(--tw-leading, var(--text-base--line-height)) !important;
+  }
+
+  .\!text-sm {
+    font-size: var(--text-sm) !important;
+    line-height: var(--tw-leading, var(--text-sm--line-height)) !important;
+  }
+
+  .text-base {
+    font-size: var(--text-base);
+    line-height: var(--tw-leading, var(--text-base--line-height));
+  }
+
+  .text-lg {
+    font-size: var(--text-lg);
+    line-height: var(--tw-leading, var(--text-lg--line-height));
+  }
+
+  .text-sm {
+    font-size: var(--text-sm);
+    line-height: var(--tw-leading, var(--text-sm--line-height));
+  }
+
+  .text-xs {
+    font-size: var(--text-xs);
+    line-height: var(--tw-leading, var(--text-xs--line-height));
+  }
+
+  .text-\[11px\] {
+    font-size: 11px;
+  }
+
+  .font-bold {
+    --tw-font-weight: var(--font-weight-bold);
+    font-weight: var(--font-weight-bold);
+  }
+
+  .font-medium {
+    --tw-font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .tracking-wide {
+    --tw-tracking: var(--tracking-wide);
+    letter-spacing: var(--tracking-wide);
+  }
+
+  .whitespace-nowrap {
+    white-space: nowrap;
+  }
+
+  .text-error {
+    color: var(--color-error);
+  }
+
+  .text-foreground {
+    color: var(--color-foreground);
+  }
+
+  .text-green-300 {
+    color: var(--color-green-300);
+  }
+
+  .text-muted-foreground {
+    color: var(--color-muted-foreground);
+  }
+
+  .text-primary {
+    color: var(--color-primary);
+  }
+
+  .text-success {
+    color: var(--color-success);
+  }
+
+  .text-white {
+    color: var(--color-white);
+  }
+
+  .text-yellow-300 {
+    color: var(--color-yellow-300);
+  }
+
+  .text-zinc-500 {
+    color: var(--color-zinc-500);
+  }
+
+  .text-zinc-800 {
+    color: var(--color-zinc-800);
+  }
+
+  .text-zinc-900 {
+    color: var(--color-zinc-900);
+  }
+
+  .tabular-nums {
+    --tw-numeric-spacing: tabular-nums;
+    font-variant-numeric: var(--tw-ordinal, ) var(--tw-slashed-zero, ) var(--tw-numeric-figure, ) var(--tw-numeric-spacing, ) var(--tw-numeric-fraction, );
+  }
+
+  .underline {
+    text-decoration-line: underline;
+  }
+
+  .accent-primary {
+    accent-color: var(--color-primary);
+  }
+
+  .opacity-90 {
+    opacity: .9;
+  }
+
+  .shadow-lg {
+    --tw-shadow: 0 10px 15px -3px var(--tw-shadow-color, #0000001a), 0 4px 6px -4px var(--tw-shadow-color, #0000001a);
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+
+  .shadow-md {
+    --tw-shadow: 0 4px 6px -1px var(--tw-shadow-color, #0000001a), 0 2px 4px -2px var(--tw-shadow-color, #0000001a);
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+
+  .shadow-sm {
+    --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color, #0000001a), 0 1px 2px -1px var(--tw-shadow-color, #0000001a);
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+
+  .ring-2 {
+    --tw-ring-shadow: var(--tw-ring-inset, ) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+
+  .ring-primary {
+    --tw-ring-color: var(--color-primary);
+  }
+
+  .outline {
+    outline-style: var(--tw-outline-style);
+    outline-width: 1px;
+  }
+
+  .filter {
+    filter: var(--tw-blur, ) var(--tw-brightness, ) var(--tw-contrast, ) var(--tw-grayscale, ) var(--tw-hue-rotate, ) var(--tw-invert, ) var(--tw-saturate, ) var(--tw-sepia, ) var(--tw-drop-shadow, );
+  }
+
+  .backdrop-blur-md {
+    --tw-backdrop-blur: blur(var(--blur-md));
+    -webkit-backdrop-filter: var(--tw-backdrop-blur, ) var(--tw-backdrop-brightness, ) var(--tw-backdrop-contrast, ) var(--tw-backdrop-grayscale, ) var(--tw-backdrop-hue-rotate, ) var(--tw-backdrop-invert, ) var(--tw-backdrop-opacity, ) var(--tw-backdrop-saturate, ) var(--tw-backdrop-sepia, );
+    backdrop-filter: var(--tw-backdrop-blur, ) var(--tw-backdrop-brightness, ) var(--tw-backdrop-contrast, ) var(--tw-backdrop-grayscale, ) var(--tw-backdrop-hue-rotate, ) var(--tw-backdrop-invert, ) var(--tw-backdrop-opacity, ) var(--tw-backdrop-saturate, ) var(--tw-backdrop-sepia, );
+  }
+
+  .backdrop-blur-xs {
+    --tw-backdrop-blur: blur(var(--blur-xs));
+    -webkit-backdrop-filter: var(--tw-backdrop-blur, ) var(--tw-backdrop-brightness, ) var(--tw-backdrop-contrast, ) var(--tw-backdrop-grayscale, ) var(--tw-backdrop-hue-rotate, ) var(--tw-backdrop-invert, ) var(--tw-backdrop-opacity, ) var(--tw-backdrop-saturate, ) var(--tw-backdrop-sepia, );
+    backdrop-filter: var(--tw-backdrop-blur, ) var(--tw-backdrop-brightness, ) var(--tw-backdrop-contrast, ) var(--tw-backdrop-grayscale, ) var(--tw-backdrop-hue-rotate, ) var(--tw-backdrop-invert, ) var(--tw-backdrop-opacity, ) var(--tw-backdrop-saturate, ) var(--tw-backdrop-sepia, );
+  }
+
+  .backdrop-filter {
+    -webkit-backdrop-filter: var(--tw-backdrop-blur, ) var(--tw-backdrop-brightness, ) var(--tw-backdrop-contrast, ) var(--tw-backdrop-grayscale, ) var(--tw-backdrop-hue-rotate, ) var(--tw-backdrop-invert, ) var(--tw-backdrop-opacity, ) var(--tw-backdrop-saturate, ) var(--tw-backdrop-sepia, );
+    backdrop-filter: var(--tw-backdrop-blur, ) var(--tw-backdrop-brightness, ) var(--tw-backdrop-contrast, ) var(--tw-backdrop-grayscale, ) var(--tw-backdrop-hue-rotate, ) var(--tw-backdrop-invert, ) var(--tw-backdrop-opacity, ) var(--tw-backdrop-saturate, ) var(--tw-backdrop-sepia, );
+  }
+
+  .transition-all {
+    transition-property: all;
+    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+    transition-duration: var(--tw-duration, var(--default-transition-duration));
+  }
+
+  .transition-colors {
+    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;
+    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+    transition-duration: var(--tw-duration, var(--default-transition-duration));
+  }
+
+  .select-none {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  .after\:absolute:after {
+    content: var(--tw-content);
+    position: absolute;
+  }
+
+  .after\:-inset-1:after {
+    content: var(--tw-content);
+    inset: calc(var(--spacing) * -1);
+  }
+
+  .after\:inset-x-0:after {
+    content: var(--tw-content);
+    inset-inline: calc(var(--spacing) * 0);
+  }
+
+  .after\:-inset-y-1:after {
+    content: var(--tw-content);
+    inset-block: calc(var(--spacing) * -1);
+  }
+
+  @media (hover: hover) {
+    .hover\:bg-white:hover {
+      background-color: var(--color-white);
+    }
+
+    .hover\:opacity-90:hover {
+      opacity: .9;
+    }
+  }
+
+  .focus\:ring-2:focus {
+    --tw-ring-shadow: var(--tw-ring-inset, ) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+
+  .focus\:ring-primary:focus {
+    --tw-ring-color: var(--color-primary);
+  }
+
+  .focus\:outline-none:focus {
+    --tw-outline-style: none;
+    outline-style: none;
+  }
+
+  .active\:scale-95:active {
+    --tw-scale-x: 95%;
+    --tw-scale-y: 95%;
+    --tw-scale-z: 95%;
+    scale: var(--tw-scale-x) var(--tw-scale-y);
+  }
+
+  .disabled\:opacity-40:disabled {
+    opacity: .4;
+  }
+
+  @media (min-width: 40rem) {
+    .sm\:gap-x-8 {
+      column-gap: calc(var(--spacing) * 8);
+    }
+  }
+
+  @media (min-width: 48rem) {
+    .md\:gap-x-12 {
+      column-gap: calc(var(--spacing) * 12);
+    }
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --color-primary: var(--primary, #336ef3);
+    --color-primary-hover: var(--primary-hover, #395fe1);
+    --color-error: var(--brand-red, #ea4335);
+    --color-warning: var(--brand-yellow, #fbbc04);
+    --color-success: var(--brand-green, #34a853);
+    --color-background: var(--surface-container-de-emphasis, #272930);
+    --color-card: var(--surface-container-de-emphasis, #272930);
+    --color-card-hover: var(--surface-container-high, #363840);
+    --color-border: var(--divider, #363840);
+    --color-input: var(--surface-container, #2c2e35);
+    --color-secondary: var(--surface-container-high, #363840);
+    --color-secondary-hover: var(--surface-container-highest, #42444d);
+    --color-accent: var(--surface-container-highest, #42444d);
+    --color-accent-foreground: var(--on-surface-default, #e6e8f0);
+    --color-muted: var(--surface-container, #2c2e35);
+    --color-muted-foreground: var(--on-surface-de-emphasis, #adafb8);
+    --color-foreground: var(--on-surface-default, #e6e8f0);
+    --color-disabled: var(--surface-container, #2c2e35);
+    --color-disabled-foreground: var(--disabled-foreground, #797c90);
+  }
+}
+
+.dark {
+  --color-primary: var(--primary, #336ef3);
+  --color-primary-hover: var(--primary-hover, #395fe1);
+  --color-error: var(--brand-red, #ea4335);
+  --color-warning: var(--brand-yellow, #fbbc04);
+  --color-success: var(--brand-green, #34a853);
+  --color-background: var(--surface-container-de-emphasis, #272930);
+  --color-card: var(--surface-container-de-emphasis, #272930);
+  --color-card-hover: var(--surface-container-high, #363840);
+  --color-border: var(--divider, #363840);
+  --color-input: var(--surface-container, #2c2e35);
+  --color-secondary: var(--surface-container-high, #363840);
+  --color-secondary-hover: var(--surface-container-highest, #42444d);
+  --color-accent: var(--surface-container-highest, #42444d);
+  --color-accent-foreground: var(--on-surface-default, #e6e8f0);
+  --color-muted: var(--surface-container, #2c2e35);
+  --color-muted-foreground: var(--on-surface-de-emphasis, #adafb8);
+  --color-foreground: var(--on-surface-default, #e6e8f0);
+  --color-disabled: var(--surface-container, #2c2e35);
+  --color-disabled-foreground: var(--disabled-foreground, #797c90);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: .6;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert();
+    opacity: .7;
+  }
+}
+
+.dark input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert();
+  opacity: .7;
+}
+
+[dir="rtl"] svg {
+  direction: ltr;
+}
+
+[dir="rtl"] svg text {
+  unicode-bidi: plaintext;
+}
+
+[dir="rtl"] .material-icons {
+  direction: rtl;
+}
+
+@property --tw-scale-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+
+@property --tw-scale-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+
+@property --tw-scale-z {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+
+@property --tw-rotate-x {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-rotate-y {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-rotate-z {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-skew-x {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-skew-y {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
+
+@property --tw-font-weight {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-tracking {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-ordinal {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-slashed-zero {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-numeric-figure {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-numeric-spacing {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-numeric-fraction {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+
+@property --tw-shadow-color {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-shadow-alpha {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+
+@property --tw-inset-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+
+@property --tw-inset-shadow-color {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-inset-shadow-alpha {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+
+@property --tw-ring-color {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-ring-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+
+@property --tw-inset-ring-color {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-inset-ring-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+
+@property --tw-ring-inset {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-ring-offset-width {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --tw-ring-offset-color {
+  syntax: "*";
+  inherits: false;
+  initial-value: #fff;
+}
+
+@property --tw-ring-offset-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+
+@property --tw-outline-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
+
+@property --tw-blur {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-brightness {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-contrast {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-grayscale {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-hue-rotate {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-invert {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-opacity {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-saturate {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-sepia {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-drop-shadow {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-drop-shadow-color {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-drop-shadow-alpha {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+
+@property --tw-drop-shadow-size {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-backdrop-blur {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-backdrop-brightness {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-backdrop-contrast {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-backdrop-grayscale {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-backdrop-hue-rotate {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-backdrop-invert {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-backdrop-opacity {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-backdrop-saturate {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-backdrop-sepia {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-content {
+  syntax: "*";
+  inherits: false;
+  initial-value: "";
+}
+
+</style><link href="https://www.gstatic.com/_/mss/search-next/_/ss/k=search-next.ss.TQsxQv8pJhs.L.B1.O/am=AB4AAACGACFQAg/d=1/ed=1/dg=2/rs=AE5fCmS6gw52GNq_ukdifS7iYg4Lmn-MyA/ee=/m=capy_widget_colors" rel="stylesheet"></head>
+    <body class="">
+  
+  <div id="root"><div dir="ltr" lang="ja" class="w-full bg-card text-foreground select-none"><div class="relative w-full aspect-video min-h-[220px] max-h-[440px] overflow-hidden border-b border-border bg-sky-400"><div class="absolute top-3 start-3 z-10 bg-black/50 backdrop-blur-xs text-white rounded-xl p-2 flex flex-col gap-1 shadow-sm pointer-events-none"><div class="flex items-center gap-1.5"><span class="material-icons !text-sm text-yellow-300">trending_flat</span><span class="text-xs font-medium tracking-wide opacity-90">距離:</span><span class="text-base font-bold tabular-nums text-yellow-300">21.0</span><span class="text-xs font-medium opacity-90">m</span></div><div class="flex items-center gap-1.5 border-t border-white/10 pt-1"><span class="material-icons !text-sm text-green-300">directions_walk</span><span class="text-xs font-medium tracking-wide opacity-90">歩数:</span><span class="text-base font-bold tabular-nums text-green-300">105</span><span class="text-xs font-medium opacity-90">歩</span></div></div><div class="absolute top-0 end-0 p-3 z-10 flex items-center justify-end pointer-events-none"><button class="w-9 h-9 rounded-full flex items-center justify-center cursor-pointer transition-colors bg-white/80 hover:bg-white text-zinc-800 focus:outline-none focus:ring-2 focus:ring-primary pointer-events-auto relative overflow-visible after:absolute after:-inset-1" aria-label="アニメーションを一時停止"><span class="material-icons !text-base">pause</span></button></div><div class="absolute bottom-3 start-3 z-20 flex flex-col gap-1.5 p-2 bg-white/90 backdrop-blur-md rounded-xl text-zinc-900 text-xs border border-zinc-200/50 min-w-[180px] shadow-lg animate-fade-in"><div class="font-bold text-zinc-800 flex items-center gap-1"><span>ゲームオーバー</span><span>🐈💨</span></div><div class="flex justify-between gap-4 border-b border-zinc-100 pb-0.5 text-[11px]"><span class="text-zinc-500">走行距離:</span><span class="font-bold text-primary">21.0m</span></div><div class="flex justify-between gap-4 text-[11px]"><span class="text-zinc-500">合計歩数:</span><span class="font-bold text-success">105歩</span></div><button class="mt-1 rounded-full bg-primary text-white text-[11px] font-medium h-7 px-3 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-primary shadow-sm hover:opacity-90 active:scale-95 transition-all text-center">もう一度挑戦する</button></div><svg role="img" aria-label="猫のキャラクターが右に走り続けるエンドレスランナーゲーム" viewBox="0 0 800 400" class="w-full h-full"><g opacity="0.6"><path d="M 0 20 A 15 15 0 0 1 30 20 A 20 20 0 0 1 70 20 A 15 15 0 0 1 90 20 A 10 10 0 0 1 90 25 L 0 25 Z" transform="translate(-136.81081840553975, 40) scale(0.8)" fill="#ffffff"></path><path d="M 0 20 A 15 15 0 0 1 30 20 A 20 20 0 0 1 70 20 A 15 15 0 0 1 90 20 A 10 10 0 0 1 90 25 L 0 25 Z" transform="translate(-786.8108184055397, 60) scale(0.8)" fill="#ffffff"></path><path d="M 0 20 A 15 15 0 0 1 30 20 A 20 20 0 0 1 70 20 A 15 15 0 0 1 90 20 A 10 10 0 0 1 90 25 L 0 25 Z" transform="translate(-486.81081840553975, 80) scale(0.8)" fill="#ffffff"></path><path d="M 0 20 A 15 15 0 0 1 30 20 A 20 20 0 0 1 70 20 A 15 15 0 0 1 90 20 A 10 10 0 0 1 90 25 L 0 25 Z" transform="translate(-186.81081840553975, 100) scale(0.8)" fill="#ffffff"></path></g><g transform="translate(-5634.054092027699, 320)"><rect width="10000" height="80" fill="#e55e2d" stroke="#a03010" stroke-width="2"></rect><rect width="10000" height="6" fill="#73bf24"></rect><line x1="0" y1="14" x2="10000" y2="14" stroke="#a03010" stroke-width="1" opacity="0.4"></line><line x1="0" y1="28" x2="10000" y2="28" stroke="#a03010" stroke-width="1" opacity="0.4"></line></g><g transform="translate(-3834.054092027699, 320)"><rect width="898.41586035268" height="80" fill="#e55e2d" stroke="#a03010" stroke-width="2"></rect><rect width="898.41586035268" height="6" fill="#73bf24"></rect><line x1="0" y1="14" x2="898.41586035268" y2="14" stroke="#a03010" stroke-width="1" opacity="0.4"></line><line x1="0" y1="28" x2="898.41586035268" y2="28" stroke="#a03010" stroke-width="1" opacity="0.4"></line></g><g transform="translate(-3135.6382316750187, 320)"><rect width="928.2073128554389" height="80" fill="#e55e2d" stroke="#a03010" stroke-width="2"></rect><rect width="928.2073128554389" height="6" fill="#73bf24"></rect><line x1="0" y1="14" x2="928.2073128554389" y2="14" stroke="#a03010" stroke-width="1" opacity="0.4"></line><line x1="0" y1="28" x2="928.2073128554389" y2="28" stroke="#a03010" stroke-width="1" opacity="0.4"></line></g><g transform="translate(-2407.43091881958, 320)"><rect width="832.4927394244246" height="80" fill="#e55e2d" stroke="#a03010" stroke-width="2"></rect><rect width="832.4927394244246" height="6" fill="#73bf24"></rect><line x1="0" y1="14" x2="832.4927394244246" y2="14" stroke="#a03010" stroke-width="1" opacity="0.4"></line><line x1="0" y1="28" x2="832.4927394244246" y2="28" stroke="#a03010" stroke-width="1" opacity="0.4"></line></g><g transform="translate(-1774.9381793951552, 320)"><rect width="939.9003907814226" height="80" fill="#e55e2d" stroke="#a03010" stroke-width="2"></rect><rect width="939.9003907814226" height="6" fill="#73bf24"></rect><line x1="0" y1="14" x2="939.9003907814226" y2="14" stroke="#a03010" stroke-width="1" opacity="0.4"></line><line x1="0" y1="28" x2="939.9003907814226" y2="28" stroke="#a03010" stroke-width="1" opacity="0.4"></line></g><g transform="translate(-1035.037788613733, 320)"><rect width="804.2849532421378" height="80" fill="#e55e2d" stroke="#a03010" stroke-width="2"></rect><rect width="804.2849532421378" height="6" fill="#73bf24"></rect><line x1="0" y1="14" x2="804.2849532421378" y2="14" stroke="#a03010" stroke-width="1" opacity="0.4"></line><line x1="0" y1="28" x2="804.2849532421378" y2="28" stroke="#a03010" stroke-width="1" opacity="0.4"></line></g><g transform="translate(-430.7528353715952, 320)"><rect width="947.5389357465401" height="80" fill="#e55e2d" stroke="#a03010" stroke-width="2"></rect><rect width="947.5389357465401" height="6" fill="#73bf24"></rect><line x1="0" y1="14" x2="947.5389357465401" y2="14" stroke="#a03010" stroke-width="1" opacity="0.4"></line><line x1="0" y1="28" x2="947.5389357465401" y2="28" stroke="#a03010" stroke-width="1" opacity="0.4"></line></g><g transform="translate(316.7861003749449, 320)"><rect width="864.990878282335" height="80" fill="#e55e2d" stroke="#a03010" stroke-width="2"></rect><rect width="864.990878282335" height="6" fill="#73bf24"></rect><line x1="0" y1="14" x2="864.990878282335" y2="14" stroke="#a03010" stroke-width="1" opacity="0.4"></line><line x1="0" y1="28" x2="864.990878282335" y2="28" stroke="#a03010" stroke-width="1" opacity="0.4"></line></g><g transform="translate(981.7769786572799, 320)"><rect width="948.8165007673215" height="80" fill="#e55e2d" stroke="#a03010" stroke-width="2"></rect><rect width="948.8165007673215" height="6" fill="#73bf24"></rect><line x1="0" y1="14" x2="948.8165007673215" y2="14" stroke="#a03010" stroke-width="1" opacity="0.4"></line><line x1="0" y1="28" x2="948.8165007673215" y2="28" stroke="#a03010" stroke-width="1" opacity="0.4"></line></g><g transform="translate(-2460.1258607525892, 1562.8840003161463)"><g transform="translate(20, 20)"><text x="0" y="10" font-size="28" text-anchor="middle">🍈</text></g></g><g transform="translate(-2939.660092037325, 260)"><g transform="translate(0, 0)"><text x="0" y="55" font-size="60" text-anchor="start">🐈</text></g></g><g transform="translate(-521.6068168784077, 394.4180000433923)"><g transform="translate(20, 20)"><text x="0" y="10" font-size="28" text-anchor="middle">🍇</text></g></g><g transform="translate(466.8759080981954, 285)"><g transform="translate(18, 18)"><text x="0" y="10" font-size="28" text-anchor="middle">👾</text></g></g><g transform="translate(401.1679080715194, 260)"><g transform="translate(0, 0)"><text x="0" y="55" font-size="60" text-anchor="start">🐈</text></g></g><g transform="translate(359.76790818214886, 38863656.347379886)"><g transform="translate(54, 54) rotate(62701.66125010152) translate(-54, -54)"><text x="0" y="104" font-size="96" text-anchor="middle" transform="translate(54, 0) scale(-1, 1) translate(-54, 0)">🐈</text></g></g></svg></div><div class="flex items-center justify-center gap-x-4 sm:gap-x-8 md:gap-x-12 border-b border-border px-5 py-3 shrink-0"><div class="flex flex-col items-center gap-0.5 min-w-0 flex-1"><span class="text-xs text-muted-foreground font-medium truncate text-center w-full">スコア</span><span class="text-sm font-medium text-foreground tabular-nums truncate text-center w-full">1,400</span></div><div class="flex flex-col items-center gap-0.5 min-w-0 flex-1"><span class="text-xs text-muted-foreground font-medium truncate text-center w-full">コイン</span><span class="text-sm font-medium text-foreground tabular-nums truncate text-center w-full">3</span></div><div class="flex flex-col items-center gap-0.5 min-w-0 flex-1"><span class="text-xs text-muted-foreground font-medium truncate text-center w-full">距離</span><span class="text-sm font-medium text-foreground tabular-nums truncate text-center w-full">21.0m</span></div><div class="flex flex-col items-center gap-0.5 min-w-0 flex-1"><span class="text-xs text-muted-foreground font-medium truncate text-center w-full">歩数</span><span class="text-sm font-medium text-foreground tabular-nums truncate text-center w-full">105歩</span></div></div><div class="p-5 flex flex-col gap-4"><div class="flex flex-col gap-1.5 w-full"><label class="text-sm font-medium text-muted-foreground">進行速度の調整</label><div class="flex items-center gap-3 w-full"><input type="range" min="0.6" max="1.6" step="0.2" class="grow h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary" aria-label="ゲームの進行速度" value="1"><span class="w-[8ch] text-end shrink-0 whitespace-nowrap text-sm font-medium tabular-nums">1.0x</span></div></div><div class="flex flex-col gap-2 bg-muted p-3 rounded-xl"><span class="text-xs text-muted-foreground font-medium text-center">🐈の移動・アクション操作ボタン</span><div class="flex justify-center items-center gap-4"><button class="rounded-full text-xs font-medium h-10 px-4 flex items-center gap-1 transition-all bg-card text-foreground active:scale-95"><span class="material-icons !text-sm">arrow_back</span>左に進む (👈)</button><button class="rounded-full bg-primary text-white text-sm font-medium h-12 px-6 shadow-md hover:opacity-90 active:scale-95 transition-all disabled:opacity-40" disabled="">ジャンプ 🚀</button><button class="rounded-full text-xs font-medium h-10 px-4 flex items-center gap-1 transition-all bg-card text-foreground active:scale-95">右に進む (👉)<span class="material-icons !text-sm">arrow_forward</span></button></div></div><div class="flex justify-end items-center"><button class="rounded-full bg-muted text-foreground text-xs font-medium h-8 px-4 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-primary relative after:absolute after:-inset-y-1 after:inset-x-0 overflow-visible">最初からリセット</button></div></div></div></div></body></html>
